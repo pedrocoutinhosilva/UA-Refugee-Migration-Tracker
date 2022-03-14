@@ -4,7 +4,7 @@ A R/Shiny dashboard to track Ukrainian Refugees movement across the border and n
 
 It feeds of existing live data sources that are updated multiple times a day to keep data as up to date as possible.
 
-Live version: https://sparktuga.shinyapps.io/slavaukraini/
+Live version: https://sparktuga.shinyapps.io/shinyukraini/
 
 # Installation
 

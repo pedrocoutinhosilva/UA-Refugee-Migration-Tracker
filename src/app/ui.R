@@ -312,11 +312,11 @@ details_overlay <- gridPanel(
 
 ui <- gridPage(
   pwa(
-    "https://sparktuga.shinyapps.io/slavaukraini/",
+    "https://sparktuga.shinyapps.io/shinyukraini/",
     title = "Slava Ukraini - Refugee Live Information",
     icon = "www/icon.png",
     output = "www",
-    color = "#0058B5"
+    color = "#222222"
   ),
 
   dependencies,
