@@ -1,0 +1,13 @@
+name: slavaukraini
+title: slavaukraini
+username:
+account: sparktuga
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5827586
+bundleId: 5683873
+url: https://sparktuga.shinyapps.io/slavaukraini/
+when: 1647293659.78427
+lastSyncTime: 1647293659.78427
+asMultiple: FALSE
+asStatic: FALSE

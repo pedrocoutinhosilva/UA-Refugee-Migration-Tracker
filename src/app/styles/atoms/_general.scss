@@ -1,0 +1,45 @@
+.control-wrapper {
+  pointer-events: all;
+  background-color: $background-mild;
+  background-image: $background-texture;
+  border: 1px solid white;
+  border-radius: 12px;
+  padding: 12px;
+
+  .fas:before {
+    font-size: 20px;
+    line-height: 1;
+    color: black;
+
+    text-shadow:
+      -1px -1px 0 #fff,
+      1px -1px 0 #fff,
+      -1px 1px 0 #fff,
+      1px 1px 0 #fff;
+  }
+
+  .legend-item {
+    display: flex;
+    font-size: 70%;
+
+    .fas {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    span {
+      display: flex;
+      height: 100%;
+      align-items: end;
+      color: white;
+      font-size: 12px;
+    }
+  }
+}
+
+.title-type,
+.title-queue {
+  color: white;
+  font-size: 12px;;
+}

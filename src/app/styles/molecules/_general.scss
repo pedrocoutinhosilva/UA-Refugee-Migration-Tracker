@@ -1,0 +1,329 @@
+.app-title {
+  position: absolute;
+  z-index: 1;
+  color: $main-font;
+  transition: all 0.5s ease;
+  text-align: center;
+  font-size: 30px;
+  padding: 15px;
+  margin: 0;
+  filter:
+    drop-shadow(black 1px 1px 0px)
+    drop-shadow(black -1px -1px 0px)
+    drop-shadow(black -1px 1px 0px)
+    drop-shadow(black 1px -1px 0px);
+
+  &.disabled {
+    opacity: 0;
+  }
+}
+
+.wait-short:before {
+  color: #28a745 !important;
+}
+
+.leaflet-marker-pane .custom-asset-marker.pedestrian-green i:after,
+.leaflet-marker-pane .custom-asset-marker.car-green i:before {
+  background: #28a745;
+}
+
+.wait-medium:before {
+  color: #ffc107 !important;
+}
+
+.leaflet-marker-pane .custom-asset-marker.pedestrian-yellow i:after,
+.leaflet-marker-pane .custom-asset-marker.car-yellow i:before {
+  background: #ffc107;
+}
+
+.wait-long:before {
+  color: #dc3545 !important;
+}
+
+.leaflet-marker-pane .custom-asset-marker.pedestrian-red i:after,
+.leaflet-marker-pane .custom-asset-marker.car-red i:before {
+  background: #dc3545;
+}
+
+.car-green .icons-wrapper .icon-left .fas:before {
+  filter: drop-shadow(-10px 0px 10px #28a745);
+}
+.car-yellow .icons-wrapper .icon-left .fas:before {
+  filter: drop-shadow(-10px 0px 10px #ffc107);
+}
+.car-red .icons-wrapper .icon-left .fas:before {
+  filter: drop-shadow(-10px 0px 10px #dc3545);
+}
+.car-none .icons-wrapper .icon-left .fas:before {
+  filter: drop-shadow(-10px 0px 10px gray);
+}
+
+.pedestrian-green .icons-wrapper .icon-right .fas:before {
+  filter: drop-shadow(-10px 0px 10px #28a745);
+}
+.pedestrian-yellow .icons-wrapper .icon-right .fas:before {
+  filter: drop-shadow(-10px 0px 10px #ffc107);
+}
+.pedestrian-red .icons-wrapper .icon-right .fas:before {
+  filter: drop-shadow(-10px 0px 10px #dc3545);
+}
+.pedestrian-none .icons-wrapper .icon-right .fas:before {
+  filter: drop-shadow(-10px 0px 10px gray);
+}
+
+.wait-none:before {
+  color: gray !important;
+}
+
+.leaflet-marker-pane .custom-asset-marker.pedestrian-none i:after,
+.leaflet-marker-pane .custom-asset-marker.car-none i:before {
+  background: gray;
+}
+
+.leaflet-shadow-pane .custom-asset-marker {
+  display: none !important;
+}
+
+.leaflet-control-attribution.leaflet-control {
+  text-align: center;
+  background: transparent;
+  color: white;
+  font-size: 9px;
+  filter: drop-shadow(black 1px 1px 0px) drop-shadow(black -1px -1px 0px) drop-shadow(black -1px 1px 0px) drop-shadow(black 1px -1px 0px);
+}
+.leaflet-control-attribution.leaflet-control a {
+  color: #bbbbbb;
+}
+
+.icons-wrapper {
+  height: 150px;
+  position: absolute;
+  width: 100%;
+}
+
+.icons-wrapper .icon-left {
+  position: absolute;
+  overflow: hidden;
+  width: 50%;
+  height: 100%;
+  top: 0;
+}
+
+.icons-wrapper .icon-left .fas {
+  position: absolute;
+  right: -50px;
+  top: 25px;
+}
+.icons-wrapper .icon-left .fas:before {
+  font-size: 100px;
+}
+
+.icons-wrapper .icon-right {
+  position: absolute;
+  overflow: hidden;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+
+.icons-wrapper .icon-right .fas {
+  position: absolute;
+  left: -30px;
+  top: 25px;
+}
+.icons-wrapper .icon-right .fas:before {
+  font-size: 100px;
+}
+.icons-wrapper .icon-separator {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 100%;
+  background: white;
+  right: 50%;
+}
+
+.popup-title {
+  border-bottom: 1px solid white;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  color: white;
+  font-size: 120%;
+}
+
+.popup-title {
+  display: flex;
+}
+
+.popup-title > div {
+  flex: 1;
+}
+.popup-title > div:nth-of-type(1) {
+  text-align: right;
+}
+.popup-title > div:nth-of-type(1) > div{
+  flex: 1;
+  padding-right: 10px;
+}
+.popup-title > div:nth-of-type(2) > div{
+  flex: 1;
+  padding-left: 10px;
+}
+
+.popup-title .title-tag {
+  font-size: 70%;
+  color: #969696;
+}
+
+.popup-content {
+  position: relative;
+  color: white;
+}
+
+.popup-content .car-metrics {
+  /* position: absolute; */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+  padding-right: 70px;
+}
+
+.popup-content .pedestrian-metrics {
+  /* position: absolute; */
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 50%;
+  text-align: right;
+  padding-left: 70px;
+}
+
+.popup-content #carKM,
+.popup-content #carHours,
+.popup-content #pedestrianNumber,
+.popup-content #pedestrianHours {
+  font-size: 200%;
+}
+
+.popup-content #carKM span:nth-of-type(2),
+.popup-content #carHours span:nth-of-type(2),
+.popup-content #pedestrianNumber span:nth-of-type(2),
+.popup-content #pedestrianHours span:nth-of-type(2) {
+  color: #969696;
+  font-size: 70%;
+}
+
+.popup-content-title {
+  font-size: 120%;
+}
+
+.last-update-metrics {
+  text-align: right;
+  font-size: 70%;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.leaflet-tooltip.country-refugees.disabled {
+  display: none;
+}
+.leaflet-marker-pane .custom-asset-marker.disabled {
+  display: none;
+}
+
+.telegram-metrics a {
+  color: white;
+  font-weight: bold;
+}
+
+.control-wrapper.popup {
+  opacity: 0;
+}
+.control-wrapper.popup.active {
+  opacity: 1;
+}
+
+.country-refugee-label {
+  text-align: center;
+  font-size: 80%;
+  transform: translate(0, -50%);
+  color: white;
+  filter:
+    drop-shadow(black 1px 1px 0px)
+    drop-shadow(black -1px -1px 0px)
+    drop-shadow(black -1px 1px 0px)
+    drop-shadow(black 1px -1px 0px);
+}
+
+.control-wrapper.map-legend .type-small i:before {
+  font-size: 12px;
+}
+.control-wrapper.map-legend p {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.control-wrapper.map-legend p,
+.control-wrapper.about p,
+.control-wrapper.sources p {
+  font-size: 150%;
+  color: white;
+}
+.control-wrapper.about a,
+.control-wrapper.sources a {
+  color: #bbbbbb;
+}
+
+.control-wrapper.about .legend-item:nth-of-type(2) {
+  text-align: center;
+}
+.control-wrapper.about .legend-item:nth-of-type(3) {
+  text-align: right;
+}
+
+.country-refugee-label .million {
+  font-size: 200%;
+}
+
+.leaflet-control-zoom {
+  display: none;
+}
+
+.map-control .separator {
+  width: calc(100% + 10px);
+  flex-basis: 1px !important;
+  background: gray;
+  margin: 5px -5px;
+}
+
+.map-control .fas {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.modal-title {
+  color: white;
+  font-size: 200%;
+}
+
+@media (max-width: 500px) {
+  .app-title {
+    font-size: 2rem;
+  }
+
+  .control-wrapper .fas:before {
+    font-size: 15px;
+  }
+
+  .control-wrapper.map-legend > div {
+    padding-top: 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .control-wrapper.map-legend .sep {
+    display: none;
+  }
+}
