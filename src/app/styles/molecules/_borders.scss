@@ -8,6 +8,8 @@
       left: -30px;
       position: absolute;
       height: 30px;
+      top: unset;
+      bottom: 1px;
 
       &:before,
       &:after {
