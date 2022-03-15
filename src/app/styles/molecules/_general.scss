@@ -19,80 +19,45 @@
 }
 
 .wait-short:before {
-  color: #28a745 !important;
-}
-
-.leaflet-marker-pane .custom-asset-marker.pedestrian-green i:after,
-.leaflet-marker-pane .custom-asset-marker.car-green i:before {
-  background: #28a745;
+  color: $wait-short !important;
 }
 
 .wait-medium:before {
-  color: #ffc107 !important;
-}
-
-.leaflet-marker-pane .custom-asset-marker.pedestrian-yellow i:after,
-.leaflet-marker-pane .custom-asset-marker.car-yellow i:before {
-  background: #ffc107;
+  color: $wait-medium !important;
 }
 
 .wait-long:before {
-  color: #dc3545 !important;
-}
-
-.leaflet-marker-pane .custom-asset-marker.pedestrian-red i:after,
-.leaflet-marker-pane .custom-asset-marker.car-red i:before {
-  background: #dc3545;
+  color: $wait-long !important;
 }
 
 .car-green .icons-wrapper .icon-left .fas:before {
-  filter: drop-shadow(-10px 0px 10px #28a745);
+  filter: drop-shadow(-10px 0px 10px $wait-short);
 }
 .car-yellow .icons-wrapper .icon-left .fas:before {
-  filter: drop-shadow(-10px 0px 10px #ffc107);
+  filter: drop-shadow(-10px 0px 10px $wait-medium);
 }
 .car-red .icons-wrapper .icon-left .fas:before {
-  filter: drop-shadow(-10px 0px 10px #dc3545);
+  filter: drop-shadow(-10px 0px 10px $wait-long);
 }
 .car-none .icons-wrapper .icon-left .fas:before {
-  filter: drop-shadow(-10px 0px 10px gray);
+  filter: drop-shadow(-10px 0px 10px $wait-none);
 }
 
 .pedestrian-green .icons-wrapper .icon-right .fas:before {
-  filter: drop-shadow(-10px 0px 10px #28a745);
+  filter: drop-shadow(-10px 0px 10px $wait-short);
 }
 .pedestrian-yellow .icons-wrapper .icon-right .fas:before {
-  filter: drop-shadow(-10px 0px 10px #ffc107);
+  filter: drop-shadow(-10px 0px 10px $wait-medium);
 }
 .pedestrian-red .icons-wrapper .icon-right .fas:before {
-  filter: drop-shadow(-10px 0px 10px #dc3545);
+  filter: drop-shadow(-10px 0px 10px $wait-long);
 }
 .pedestrian-none .icons-wrapper .icon-right .fas:before {
-  filter: drop-shadow(-10px 0px 10px gray);
+  filter: drop-shadow(-10px 0px 10px $wait-none);
 }
 
 .wait-none:before {
-  color: gray !important;
-}
-
-.leaflet-marker-pane .custom-asset-marker.pedestrian-none i:after,
-.leaflet-marker-pane .custom-asset-marker.car-none i:before {
-  background: gray;
-}
-
-.leaflet-shadow-pane .custom-asset-marker {
-  display: none !important;
-}
-
-.leaflet-control-attribution.leaflet-control {
-  text-align: center;
-  background: transparent;
-  color: white;
-  font-size: 9px;
-  filter: drop-shadow(black 1px 1px 0px) drop-shadow(black -1px -1px 0px) drop-shadow(black -1px 1px 0px) drop-shadow(black 1px -1px 0px);
-}
-.leaflet-control-attribution.leaflet-control a {
-  color: #bbbbbb;
+  color: $wait-none !important;
 }
 
 .icons-wrapper {
@@ -182,7 +147,6 @@
 }
 
 .popup-content .car-metrics {
-  /* position: absolute; */
   top: 0;
   bottom: 0;
   left: 0;
@@ -191,7 +155,6 @@
 }
 
 .popup-content .pedestrian-metrics {
-  /* position: absolute; */
   top: 0;
   bottom: 0;
   right: 0;
@@ -225,13 +188,6 @@
   display: flex;
   align-items: end;
   justify-content: end;
-}
-
-.leaflet-tooltip.country-refugees.disabled {
-  display: none;
-}
-.leaflet-marker-pane .custom-asset-marker.disabled {
-  display: none;
 }
 
 .telegram-metrics a {
@@ -290,10 +246,6 @@
 
 .country-refugee-label .million {
   font-size: 200%;
-}
-
-.leaflet-control-zoom {
-  display: none;
 }
 
 .map-control .separator {

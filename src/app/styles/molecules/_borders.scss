@@ -1,0 +1,112 @@
+.leaflet-marker-pane {
+  .custom-asset-marker {
+    i {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      right: -30px;
+      left: -30px;
+      position: absolute;
+      height: 30px;
+
+      &:before,
+      &:after {
+        content: "" !important;
+        display: none !important;
+      }
+    }
+
+    &.car-none.pedestrian {
+      &-none i {
+        background-image: url('./points/none-none.svg');
+      }
+      &-green i {
+        background-image: url('./points/none-green.svg');
+      }
+      &-yellow i {
+        background-image: url('./points/none-yellow.svg');
+      }
+      &-red i {
+        background-image: url('./points/none-red.svg');
+      }
+    }
+    &.car-green.pedestrian {
+      &-none i {
+        background-image: url('./points/green-none.svg');
+      }
+      &-green i {
+        background-image: url('./points/green-green.svg');
+      }
+      &-yellow i {
+        background-image: url('./points/green-yellow.svg');
+      }
+      &-red i {
+        background-image: url('./points/green-red.svg');
+      }
+    }
+    &.car-yellow.pedestrian {
+      &-none i {
+        background-image: url('./points/yellow-none.svg');
+      }
+      &-green i {
+        background-image: url('./points/yellow-green.svg');
+      }
+      &-yellow i {
+        background-image: url('./points/yellow-yellow.svg');
+      }
+      &-red i {
+        background-image: url('./points/yellow-red.svg');
+      }
+    }
+    &.car-red.pedestrian {
+      &-none i {
+        background-image: url('./points/red-none.svg');
+      }
+      &-green i {
+        background-image: url('./points/red-green.svg');
+      }
+      &-yellow i {
+        background-image: url('./points/red-yellow.svg');
+      }
+      &-red i {
+        background-image: url('./points/red-red.svg');
+      }
+    }
+  }
+}
+
+.leaflet-marker-pane {
+  .custom-asset-marker {
+    background: transparent;
+    border-radius: 100%;
+    position: absolute;
+    filter:
+      drop-shadow(black 1px 1px 0px)
+      drop-shadow(black -1px -1px 0px)
+      drop-shadow(black -1px 1px 0px)
+      drop-shadow(black 1px -1px 0px);
+
+    &:hover {
+      z-index: 10000 !important;
+      filter:
+        drop-shadow(black 1px 1px 0px)
+        drop-shadow(black -1px -1px 0px)
+        drop-shadow(black -1px 1px 0px)
+        drop-shadow(black 1px -1px 0px)
+        drop-shadow(2px 4px 6px black);
+    }
+
+    &.selected {
+      z-index: 10000 !important;
+      filter:
+        drop-shadow(black 1px 1px 0px)
+        drop-shadow(black -1px -1px 0px)
+        drop-shadow(black -1px 1px 0px)
+        drop-shadow(black 1px -1px 0px)
+        drop-shadow(white 1px 1px 2px)
+        drop-shadow(white -1px -1px 2px)
+        drop-shadow(white -1px 1px 2px)
+        drop-shadow(white 1px -1px 2px);
+    }
+  }
+}

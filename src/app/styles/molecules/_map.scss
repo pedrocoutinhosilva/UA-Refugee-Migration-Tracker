@@ -31,111 +31,32 @@
   background-image: $background-texture;
 }
 
-.leaflet-marker-pane {
-  .custom-asset-marker {
-    background: transparent;
-    border-radius: 100%;
-    position: absolute;
-    filter:
-      drop-shadow(black 1px 1px 0px)
-      drop-shadow(black -1px -1px 0px)
-      drop-shadow(black -1px 1px 0px)
-      drop-shadow(black 1px -1px 0px);
-
-    &:hover {
-      z-index: 10000 !important;
-      filter:
-        drop-shadow(black 1px 1px 0px)
-        drop-shadow(black -1px -1px 0px)
-        drop-shadow(black -1px 1px 0px)
-        drop-shadow(black 1px -1px 0px)
-        drop-shadow(2px 4px 6px black);
-    }
-
-    &.selected {
-      z-index: 10000 !important;
-      filter:
-        drop-shadow(black 1px 1px 0px)
-        drop-shadow(black -1px -1px 0px)
-        drop-shadow(black -1px 1px 0px)
-        drop-shadow(black 1px -1px 0px)
-        drop-shadow(white 1px 1px 2px)
-        drop-shadow(white -1px -1px 2px)
-        drop-shadow(white -1px 1px 2px)
-        drop-shadow(white 1px -1px 2px);
-    }
-
-    &:before,
-    &:after {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      font-size: 15px;
-      line-height: 1;
-      position: absolute;
-      bottom: 5px;
-      margin: auto;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-shadow:
-        -1px -1px 0 #fff,
-        1px -1px 0 #fff,
-        -1px 1px 0 #fff,
-        1px 1px 0 #fff;
-    }
-
-    &:before {
-      content: "\f1b9";
-      right: 100%;
-    }
-
-    &:after {
-      content: "\f6ec";
-      left: 100%;
-    }
-  }
+.leaflet-shadow-pane .custom-asset-marker {
+  display: none !important;
 }
 
-.leaflet-marker-pane .custom-asset-marker i {
-  display: flex;
-  right: 0;
-  bottom: 0;
-  top: unset;
-  left: 5px;
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  border-radius: 100%;
+.leaflet-control-attribution.leaflet-control {
+  text-align: center;
+  background: transparent;
+  color: white;
+  font-size: 9px;
+  filter:
+    drop-shadow(black 1px 1px 0px)
+    drop-shadow(black -1px -1px 0px)
+    drop-shadow(black -1px 1px 0px)
+    drop-shadow(black 1px -1px 0px);
+}
+.leaflet-control-attribution.leaflet-control a {
+  color: #bbbbbb;
+}
 
-  box-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+.leaflet-tooltip.country-refugees.disabled {
+  display: none;
+}
+.leaflet-marker-pane .custom-asset-marker.disabled {
+  display: none;
+}
 
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    position: absolute;
-    z-index: -1;
-  }
-
-  &:before {
-    background: #b9b9b9;
-    left: 0;
-    right: 50%;
-    top: 0;
-    bottom: 0;
-    border-radius: 100px 0 0 100px;
-    border-right: 1px solid white;
-  }
-  &:after {
-    background: #b9b9b9;
-    right: 0;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    border-radius: 0 100px 100px 0;
-  }
+.leaflet-control-zoom {
+  display: none;
 }
