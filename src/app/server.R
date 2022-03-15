@@ -176,5 +176,19 @@ server <- function(input, output, session) {
         a(target = "_target", href = info$telegram, info$telegram)
       )
     })
+    output$googleLink <- renderUI({
+      tagList(
+        a(
+          target = "_target",
+          href = paste0(
+            "https://www.google.com/maps/search/?api=1&query=",
+            info$lat,
+            ",",
+            info$lng
+          ),
+          paste("Coordinates:", info$lat, ",", info$lng)
+        )
+      )
+    })
   })
 }

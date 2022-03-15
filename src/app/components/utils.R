@@ -49,7 +49,8 @@ checkpointPopup <- function(inner,
                             pedestrian_hours,
                             pedestrian_number,
                             lastUpdate,
-                            telegramChats) {
+                            telegramChats,
+                            googleLink) {
   div(class = "control-wrapper",
     div(
       class = "popup-title",
@@ -68,12 +69,14 @@ checkpointPopup <- function(inner,
       style = "height: auto",
 
       areas = c(
-        "left right",
-        "telegram update"
+        "left     left      right     right",
+        "telegram telegram  telegram  ...",
+        "google   google    google    update"
       ),
       gap = "10px",
 
-      rows = "150px auto",
+      rows = "150px auto auto",
+      columns = "1fr 1fr 1fr 1fr",
 
       div(
         class = "icons-wrapper",
@@ -133,8 +136,16 @@ checkpointPopup <- function(inner,
         class = "telegram-metrics",
 
         div(
-          div(class = "popup-content-title", "Telegram chats"),
+          div(class = "popup-content-title", "Telegram Chats"),
           telegramChats
+        )
+      ),
+      google = div(
+        class = "telegram-metrics",
+
+        div(
+          div(class = "popup-content-title", "Map Location"),
+          googleLink
         )
       )
     )

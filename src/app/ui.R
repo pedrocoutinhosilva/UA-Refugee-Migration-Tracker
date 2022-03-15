@@ -325,7 +325,8 @@ details_overlay <- gridPanel(
     uiOutput("pedestrianHours"),
     uiOutput("pedestrianNumber"),
     uiOutput("lastUpdate"),
-    uiOutput("telegramChats")
+    uiOutput("telegramChats"),
+    uiOutput("googleLink")
   )
 )
 
