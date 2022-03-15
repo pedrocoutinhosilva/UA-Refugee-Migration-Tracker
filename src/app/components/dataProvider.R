@@ -11,48 +11,55 @@ export(load_data, load_refugee_data, load_country_shapes)
 stations <- use("data/stations.R")$stations
 
 load_country_shapes <- function() {
-  # From http://data.okfn.org/data/datasets/geo-boundaries-world-110m
-  geojson <- readLines("data/country_shapes.geojson", warn = FALSE) %>%
-    paste(collapse = "\n") %>%
-    fromJSON(simplifyVector = FALSE)
+  path <- "data/country_shapes.rds"
+  if (file.exists(path)) {
+    geojson <- readRDS(path)
+  } else {
+    # From http://data.okfn.org/data/datasets/geo-boundaries-world-110m
+    geojson <- readLines("data/country_shapes.geojson", warn = FALSE) %>%
+      paste(collapse = "\n") %>%
+      fromJSON(simplifyVector = FALSE)
 
-    # Default styles for all features
-  geojson$style <- list(
-    weight = 1,
-    color = "#222",
-    opacity = 1,
-    fillOpacity = 0.6
-  )
+      # Default styles for all features
+    geojson$style <- list(
+      weight = 1,
+      color = "#222",
+      opacity = 1,
+      fillOpacity = 0.6
+    )
 
-  options <- list(
-    countries = c("PL", "SK", "RO", "HU", "MD", "UA")
-  )
+    options <- list(
+      countries = c("PL", "SK", "RO", "HU", "MD", "UA")
+    )
 
-  geojson$features <- geojson$features[sapply(geojson$features, function(feat) {
-      if (feat$properties$iso2 %in% options$countries) {
-          return(TRUE)
+    geojson$features <- geojson$features[sapply(geojson$features, function(feat) {
+        if (feat$properties$iso2 %in% options$countries) {
+            return(TRUE)
+        }
+
+        return(FALSE)
+    })]
+
+    # Add a properties$style list to each feature
+    geojson$features <- lapply(geojson$features, function(feat) {
+      if (feat$properties$iso2 == "UA") {
+        feat$properties$style <- list(
+          fillColor = "#0058B5",
+          color = "white",
+          className = "ukraine country-shape"
+        )
+      } else {
+        feat$properties$style <- list(
+          fillColor = "#F7CE00",
+          className = "bordering country-shape"
+        )
       }
 
-      return(FALSE)
-  })]
+      feat
+    })
 
-  # Add a properties$style list to each feature
-  geojson$features <- lapply(geojson$features, function(feat) {
-    if (feat$properties$iso2 == "UA") {
-      feat$properties$style <- list(
-        fillColor = "#0058B5",
-        color = "white",
-        className = "ukraine country-shape"
-      )
-    } else {
-      feat$properties$style <- list(
-        fillColor = "#F7CE00",
-        className = "bordering country-shape"
-      )
-    }
-
-    feat
-  })
+    saveRDS(geojson, path)
+  }
 
   geojson
 }
