@@ -169,7 +169,15 @@ server <- function(input, output, session) {
       )
     })
     output$lastUpdate <- renderUI({
-      span(format(as.Date(as.numeric(info$last_update), origin = "1899-12-30")))
+      eet_time <- as.POSIXct(
+        (as.numeric(info$last_update) * (60*60*24)) - 1*60*60,
+        origin = "1899-12-30"
+      )
+
+      tagList(
+        span(format(eet_time, "%Y-%m-%d")),
+        span(paste(format(eet_time, "%H:%M"), "EET"))
+      )
     })
     output$telegramChats <- renderUI({
       tagList(
