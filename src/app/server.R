@@ -1,3 +1,7 @@
+defaultMapBounds <- function(...) {
+  fitBounds(..., 19.33594, 53.21261, 31.77246, 46.52863)
+}
+
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
   output$mymap <- renderLeaflet({
@@ -10,7 +14,7 @@ server <- function(input, output, session) {
       addProviderTiles(providers$Stamen.TonerLite,
         options = providerTileOptions(noWrap = TRUE)
       ) %>%
-      fitBounds(13.411356, 54.815122, 44.568583, 42.668544) %>%
+      defaultMapBounds() %>%
       addGeoJSON(state$shapes) %>%
       addAwesomeMarkers(
         data = checkpoints$PL,
@@ -78,10 +82,12 @@ server <- function(input, output, session) {
 
   observeEvent(input$resetZoom, {
     leafletProxy("mymap") %>%
-      fitBounds(13.411356, 54.815122, 44.568583, 42.668544)
+      defaultMapBounds()
   })
 
   observeEvent(input$mymap_click, {
+
+    print(input$mymap_click)
     if (is.null(input$mymap_click$id)) {
       session$sendCustomMessage("togglePopup", FALSE)
     }

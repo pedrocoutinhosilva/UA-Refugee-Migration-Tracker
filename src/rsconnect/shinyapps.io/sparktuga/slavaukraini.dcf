@@ -5,9 +5,9 @@ account: sparktuga
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5827586
-bundleId: 5683970
+bundleId: 5684049
 url: https://sparktuga.shinyapps.io/slavaukraini/
-when: 1647295380.5478
-lastSyncTime: 1647295380.5478
+when: 1647296728.98911
+lastSyncTime: 1647296728.98911
 asMultiple: FALSE
 asStatic: FALSE

@@ -95,7 +95,7 @@ checkpointPopup <- function(inner,
         rows = "1fr 1fr",
 
         div(
-          div(class = "popup-content-title", "Queue lenght"),
+          div(class = "popup-content-title", "Queue length"),
           car_km,
         ),
 

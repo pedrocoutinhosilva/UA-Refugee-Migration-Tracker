@@ -267,11 +267,13 @@
 }
 .control-wrapper.map-legend p,
 .control-wrapper.about p,
+.control-wrapper.stand p,
 .control-wrapper.sources p {
   font-size: 150%;
   color: white;
 }
 .control-wrapper.about a,
+.control-wrapper.stand a,
 .control-wrapper.sources a {
   color: #bbbbbb;
 }
@@ -281,6 +283,9 @@
 }
 .control-wrapper.about .legend-item:nth-of-type(3) {
   text-align: right;
+}
+.control-wrapper.about .legend-item .fab:before {
+  font-size: 20px;
 }
 
 .country-refugee-label .million {

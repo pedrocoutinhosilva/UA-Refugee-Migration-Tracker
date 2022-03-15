@@ -81,11 +81,12 @@ map_legend <- gridPanel(
   id = "overlayLegendGrid",
 
   columns = "1fr auto 1fr",
-  rows = "1fr auto auto auto auto auto 1fr",
+  rows = "1fr auto auto auto auto auto auto 1fr",
   areas = c(
     "... ...         ...",
     "... title       ...",
     "... description ...",
+    "... stand       ...",
     "... about       ...",
     "... sources     ...",
     "... legend      ...",
@@ -110,6 +111,24 @@ map_legend <- gridPanel(
       Includes migrant information in neighboring countries, as well as live
       information regarding border control points with neighboring countries.
     ")
+  ),
+
+  stand = flexPanel(
+    class = "control-wrapper",
+    direction = "column",
+    style = "color: white;",
+
+    p("#StandWithUkraine"),
+    a(
+      target = "_blank",
+      href = "https://stand-with-ukraine.pp.ua/",
+      "How you can help"
+    ),
+    a(
+      target = "_blank",
+      href = "https://war.ukraine.ua/",
+      "More information on the ongoing war"
+    )
   ),
 
   about = flexPanel(
