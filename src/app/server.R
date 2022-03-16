@@ -83,21 +83,15 @@ server <- function(input, output, session) {
         function(el,x) {
           $('#overlayLoading').addClass('disabled');
           Shiny.setInputValue('browserComplete', true, {priority: 'event'});
+
+          console.log('disconnecting from server');
+          Shiny.shinyapp.$socket.close();
         }
       ")
   })
 
   observeEvent(input$browserComplete, {
-    # httpuv::stopServer(httpuv::listServers()[[1]])
-    
-    # session$options$server$stop()
+    session$close()
     print("Page served, disconnecting session")
   })
-
-  # observeEvent(input$mymap_click, {
-  #   print(input$mymap_click)
-  #   if (is.null(input$mymap_click$id)) {
-  #     session$sendCustomMessage("togglePopup", FALSE)
-  #   }
-  # })
 }

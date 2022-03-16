@@ -5,9 +5,9 @@ account: sparktuga
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5856050
-bundleId: 5688210
+bundleId: 5692436
 url: https://sparktuga.shinyapps.io/uatesting/
-when: 1647372665.55624
-lastSyncTime: 1647372665.55624
+when: 1647454069.35751
+lastSyncTime: 1647454069.35751
 asMultiple: FALSE
 asStatic: FALSE
