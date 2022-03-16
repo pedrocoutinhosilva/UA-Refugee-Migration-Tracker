@@ -19,8 +19,11 @@ dataProvider <- use("components/dataProvider.R")
 state <- list(
   shapes = dataProvider$load_country_shapes(),
   checkpoints = dataProvider$load_data(),
-  refugees = dataProvider$load_refugee_data()
+  refugees = dataProvider$load_refugee_data(),
+  map_bounds = list(c(46.52863, 31.77246), c(53.21261, 19.33594))
 )
+
+browser_data <- jsonlite::toJSON(state)
 
 sass(
   sass::sass_file("styles/main.scss"),

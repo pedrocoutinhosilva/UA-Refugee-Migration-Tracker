@@ -96,6 +96,24 @@ country_data <- function(raw, country) {
     station$lng
   }) %>% unlist()
 
+  last_update_day <- lapply(raw[[9]][c(TRUE, FALSE)], function(last_update) {
+    eet_time <- as.POSIXct(
+      (as.numeric(last_update) * (60*60*24)) - 1*60*60,
+      origin = "1899-12-30"
+    )
+
+    format(eet_time, "%Y-%m-%d")
+  }) %>% unlist()
+
+  last_update_hour <- lapply(raw[[9]][c(TRUE, FALSE)], function(last_update) {
+    eet_time <- as.POSIXct(
+      (as.numeric(last_update) * (60*60*24)) - 1*60*60,
+      origin = "1899-12-30"
+    )
+
+    paste(format(eet_time, "%H:%M"), "EET")
+  }) %>% unlist()
+
   data.frame(
     id                = ids,
     inner_border_name = raw[[3]][c(TRUE, FALSE)],
@@ -105,6 +123,8 @@ country_data <- function(raw, country) {
     foot_queue_units  = raw[[7]][c(TRUE, FALSE)],
     foot_queue_hours  = raw[[8]][c(TRUE, FALSE)],
     last_update       = raw[[9]][c(TRUE, FALSE)],
+    last_update_day   = last_update_day,
+    last_update_hour  = last_update_hour,
     telegram          = raw[[11]][c(TRUE, FALSE)],
     map_link          = raw[[13]][c(TRUE, FALSE)],
     lat               = lats,

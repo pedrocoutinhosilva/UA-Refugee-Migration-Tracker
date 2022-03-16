@@ -1,20 +1,22 @@
-defaultMapBounds <- function(...) {
-  fitBounds(..., 19.33594, 53.21261, 31.77246, 46.52863)
-}
+# defaultMapBounds <- function(...) {
+#   fitBounds(..., 19.33594, 53.21261, 31.77246, 46.52863)
+# }
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
+  print("Loading map")
+
   output$mymap <- renderLeaflet({
     checkpoints <- state$checkpoints
     refugees <- state$refugees
 
     leaflet(
-      options = leafletOptions(preferCanvas = NULL)
+      options = leafletOptions(preferCanvas = TRUE)
     ) %>%
       addProviderTiles(providers$Stamen.TonerLite,
         options = providerTileOptions(noWrap = TRUE)
       ) %>%
-      defaultMapBounds() %>%
+      fitBounds(19.33594, 53.21261, 31.77246, 46.52863) %>%
       addGeoJSON(state$shapes) %>%
       addAwesomeMarkers(
         data = checkpoints$PL,
@@ -74,131 +76,28 @@ server <- function(input, output, session) {
           textsize = "14px",
           className = "country-refugees"
         )
-      ) %>% {
-        session$sendCustomMessage("toggleLoader", TRUE)
-        .
-      } %>%
+      ) %>%
       suppressWarnings() %>%
-      suppressMessages()
+      suppressMessages() %>%
+      htmlwidgets::onRender("
+        function(el,x) {
+          $('#overlayLoading').addClass('disabled');
+          Shiny.setInputValue('browserComplete', true, {priority: 'event'});
+        }
+      ")
   })
 
-  observeEvent(input$resetZoom, {
-    leafletProxy("mymap") %>%
-      defaultMapBounds()
+  observeEvent(input$browserComplete, {
+    # httpuv::stopServer(httpuv::listServers()[[1]])
+    
+    # session$options$server$stop()
+    print("Page served, disconnecting session")
   })
 
-  observeEvent(input$mymap_click, {
-
-    print(input$mymap_click)
-    if (is.null(input$mymap_click$id)) {
-      session$sendCustomMessage("togglePopup", FALSE)
-    }
-  })
-
-  observeEvent(input$mymap_marker_click, {
-    feature_id <- input$mymap_marker_click$id
-
-    if (feature_id %in% state$refugees$geomaster_name) {
-      return()
-    }
-
-    trackEvent(session, "Border Point", feature_id, "View Border Point")
-
-    country_code <- stringr::str_split(feature_id, "_")[[1]][1]
-    station_code <- stringr::str_split(feature_id, "_")[[1]][2]
-
-    info <- state$checkpoints[[country_code]][station_code, ]
-
-    car_state <- info$car_queue_hours %>%
-      as.numeric() %>%
-      getCarState()
-
-    pedestrian_state <- info$foot_queue_hours %>%
-      as.numeric() %>%
-      getPedestrianState()
-
-    session$sendCustomMessage("togglePopupClass", list(
-      car = car_state,
-      pedestrian = pedestrian_state
-    ))
-
-    output$checkpointInnerTitle <- renderUI({
-      info$inner_border_name
-    })
-
-    output$checkpointOuterTitle <- renderUI({
-      info$outer_border_name
-    })
-
-    output$carHours <- renderUI({
-      if (identical(car_state, "none")) {
-        return(tagList(span(), span("Not available")))
-      }
-
-      tagList(
-        span(as.numeric(info$car_queue_hours)),
-        span(" Hours")
-      )
-    })
-    output$carKM <- renderUI({
-      if (identical(car_state, "none")) {
-        return(tagList(span(), span("Not available")))
-      }
-
-      tagList(
-        span(as.numeric(info$car_queue_km)),
-        span(" KM")
-      )
-    })
-    output$pedestrianHours <- renderUI({
-      if (identical(pedestrian_state, "none")) {
-        return(tagList(span(), span("Not available")))
-      }
-
-      tagList(
-        span(as.numeric(info$foot_queue_hours)),
-        span(" Hours")
-      )
-    })
-    output$pedestrianNumber <- renderUI({
-      if (identical(pedestrian_state, "none")) {
-        return(tagList(span(), span("Not available")))
-      }
-
-      tagList(
-        span(as.numeric(info$foot_queue_units)),
-        span(" People")
-      )
-    })
-    output$lastUpdate <- renderUI({
-      eet_time <- as.POSIXct(
-        (as.numeric(info$last_update) * (60*60*24)) - 1*60*60,
-        origin = "1899-12-30"
-      )
-
-      tagList(
-        span(format(eet_time, "%Y-%m-%d")),
-        span(paste(format(eet_time, "%H:%M"), "EET"))
-      )
-    })
-    output$telegramChats <- renderUI({
-      tagList(
-        a(target = "_target", href = info$telegram, info$telegram)
-      )
-    })
-    output$googleLink <- renderUI({
-      tagList(
-        a(
-          target = "_target",
-          href = paste0(
-            "https://www.google.com/maps/search/?api=1&query=",
-            info$lat,
-            ",",
-            info$lng
-          ),
-          paste("Coordinates:", info$lat, ",", info$lng)
-        )
-      )
-    })
-  })
+  # observeEvent(input$mymap_click, {
+  #   print(input$mymap_click)
+  #   if (is.null(input$mymap_click$id)) {
+  #     session$sendCustomMessage("togglePopup", FALSE)
+  #   }
+  # })
 }

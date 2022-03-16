@@ -1,3 +1,34 @@
+let getCarState = function(entry) {
+  if (isNaN(entry)) {
+    return("none")
+  }
+
+  if (entry > 0 && entry <= 2) {
+    return("yellow")
+  }
+
+  if (entry > 2) {
+    return("red")
+  }
+
+  return("green")
+}
+
+let getPedestrianState = function(entry) {
+  if (isNaN(entry)) {
+    return("none")
+  }
+
+  if (entry > 0 && entry <= 1) {
+    return("yellow")
+  }
+  if (entry > 1) {
+    return("red")
+  }
+
+  return("green")
+}
+
 $( document ).ready(function() {
   // Map events
   $('#mymap').on('mouseenter', '.country-shape', function() {
@@ -8,10 +39,87 @@ $( document ).ready(function() {
     $( this ).removeClass('highlighted');
   });
 
-  $('#mymap').on('click', '.leaflet-marker-pane .custom-asset-marker', function() {
-    selectMarker(this);
-    togglePopup(true);
-  });
+  document.getElementById('mymap').onclick = function(e) {
+    if (!$(e.target.parentElement).is('.leaflet-marker-pane .custom-asset-marker')) {
+      togglePopup(false);
+    }
+
+    if ($(e.target.parentElement).is('.leaflet-marker-pane .custom-asset-marker')) {
+
+      if ($(e.target.parentElement).hasClass("selected")) {
+        $(e.target.parentElement).removeClass("selected");
+
+        togglePopup(false);
+      } else {
+        selectMarker(e.target.parentElement);
+
+        let data_id = HTMLWidgets
+          .getInstance(document.getElementById("mymap"))
+          .getMap()
+          ._targets[e.target.parentElement._leaflet_id].options.layerId
+          .split("_")
+
+        let point_data = station_data.checkpoints[data_id[0]][parseInt(data_id[1]) - 1]
+
+        document.getElementById("checkpointInnerTitle").innerHTML = point_data.inner_border_name;
+        document.getElementById("checkpointOuterTitle").innerHTML = point_data.outer_border_name;
+
+        let car_state = getCarState(parseFloat(point_data.car_queue_hours));
+        let pedestrian_state = getPedestrianState(parseFloat(point_data.foot_queue_hours));
+
+        document.getElementById("carKM").innerHTML = function() {
+          switch (car_state) {
+            case "none": return(`<span></span><span>Not available</span>`)
+              break;
+            default: return(`<span>${parseFloat(point_data.car_queue_km)}</span><span> KM</span>`)
+          }
+        }();
+
+        document.getElementById("carHours").innerHTML = function() {
+          switch (car_state) {
+            case "none": return(`<span></span><span>Not available</span>`)
+              break;
+            default: return(`<span>${parseFloat(point_data.car_queue_hours)}</span><span> Hours</span>`)
+          }
+        }();
+
+        document.getElementById("pedestrianHours").innerHTML = function() {
+          switch (pedestrian_state) {
+            case "none": return(`<span></span><span>Not available</span>`)
+              break;
+            default: return(`<span>${parseFloat(point_data.foot_queue_hours)}</span><span> Hours</span>`)
+          }
+        }();
+
+        document.getElementById("pedestrianNumber").innerHTML = function() {
+          switch (pedestrian_state) {
+            case "none": return(`<span></span><span>Not available</span>`)
+              break;
+            default: return(`<span>${parseFloat(point_data.foot_queue_units)}</span><span> People</span>`)
+          }
+        }();
+
+        document.getElementById("lastUpdate").innerHTML = `
+          <span>${point_data.last_update_day}</span>
+          <span>${point_data.last_update_hour}</span>
+        `;
+
+        document.getElementById("telegramChats").innerHTML = `
+          <a target = "_target" href = "${point_data.telegram}">${point_data.telegram}</a>
+        `;
+
+        document.getElementById("googleLink").innerHTML = `
+          <a target = "_target" href = "https://www.google.com/maps/search/?api=1&query=${point_data.lat},${point_data.lng}">Coordinates: ${point_data.lat}, ${point_data.lng}</a>
+        `;
+
+        togglePopupClass({
+          car: car_state,
+          pedestrian: pedestrian_state
+        });
+        togglePopup(true);
+      }
+    }
+  };
 
   // Toggle overlays
   $('#overlayLegendGrid').on('click', function(event) {
@@ -22,6 +130,12 @@ $( document ).ready(function() {
   });
 });
 
+let resetZoom = function() {
+  HTMLWidgets
+    .getInstance(document.getElementById("mymap"))
+    .getMap().fitBounds(station_data.map_bounds);
+}
+
 // Map controls
 let toggleTiles = function(target) {
   $(".leaflet-pane.leaflet-tile-pane").toggleClass("active");
@@ -29,6 +143,8 @@ let toggleTiles = function(target) {
 }
 let toggleLoader = function(state) {
   $("#overlayLoading").addClass("disabled");
+
+  Shiny.setInputValue('browserComplete', true, {priority: 'event'});
 }
 Shiny.addCustomMessageHandler("toggleLoader", toggleLoader);
 
@@ -44,7 +160,7 @@ let toggleBorders = function(target) {
 
 let selectMarker = function(target) {
   $(".leaflet-marker-pane .custom-asset-marker").removeClass("selected");
-  $(target).addClass("selected")
+  $(target).addClass("selected");
 }
 
 // Marker popups

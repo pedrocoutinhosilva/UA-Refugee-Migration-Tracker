@@ -4,7 +4,8 @@ dependencies <- tagList(
   tags$head(includeHTML(("www/google-analytics.html"))),
   tags$link(rel = "stylesheet", type = "text/css", href = "css/fa.all.min.css"),
   tags$link(rel = "stylesheet", type = "text/css", href = "css/sass.min.css"),
-  tags$script(src = "js/scripts.js")
+  tags$script(src = "js/scripts.js"),
+  tags$script(paste0("let station_data = ", browser_data, ";"))
 )
 
 app_title <- h1(
@@ -72,7 +73,7 @@ map_controls <- gridPanel(
     div(class = "separator"),
     tags$i(
       class = "fas fa-crosshairs legend-control active",
-      onclick = "Shiny.setInputValue('resetZoom', true, {priority: 'event'})"
+      onclick = "resetZoom()"
     )
   )
 )
@@ -317,16 +318,27 @@ details_overlay <- gridPanel(
     )
   ),
 
+  # popup = checkpointPopup(
+  #   uiOutput("checkpointInnerTitle"),
+  #   uiOutput("checkpointOuterTitle"),
+  #   uiOutput("carHours"),
+  #   uiOutput("carKM"),
+  #   uiOutput("pedestrianHours"),
+  #   uiOutput("pedestrianNumber"),
+  #   uiOutput("lastUpdate"),
+  #   uiOutput("telegramChats"),
+  #   uiOutput("googleLink")
+  # )
   popup = checkpointPopup(
-    uiOutput("checkpointInnerTitle"),
-    uiOutput("checkpointOuterTitle"),
-    uiOutput("carHours"),
-    uiOutput("carKM"),
-    uiOutput("pedestrianHours"),
-    uiOutput("pedestrianNumber"),
-    uiOutput("lastUpdate"),
-    uiOutput("telegramChats"),
-    uiOutput("googleLink")
+    div(id = "checkpointInnerTitle"),
+    div(id = "checkpointOuterTitle"),
+    div(id = "carHours"),
+    div(id = "carKM"),
+    div(id = "pedestrianHours"),
+    div(id = "pedestrianNumber"),
+    div(id = "lastUpdate"),
+    div(id = "telegramChats"),
+    div(id = "googleLink")
   )
 )
 
