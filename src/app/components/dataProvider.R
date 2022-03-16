@@ -121,7 +121,9 @@ load_data = function() {
     curl_download(url, path)
   })
 
-  data <- readxl::read_xlsx(path)
+  data <- readxl::read_xlsx(path) %>%
+  suppressWarnings() %>%
+  suppressMessages()
 
   rows <- lapply(stations, function(country) {
     mapping <- lapply(country, function(station) {
@@ -137,7 +139,9 @@ load_data = function() {
         data[c((as.integer(key) - 1), key), ]
       })
     )
-  })
+  }) %>%
+  suppressWarnings() %>%
+  suppressMessages()
 
   list(
     PL = country_data(rows$PL, "PL"),

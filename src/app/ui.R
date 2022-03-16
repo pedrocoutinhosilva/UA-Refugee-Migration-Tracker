@@ -337,7 +337,9 @@ ui <- gridPage(
     icon = "www/icon.png",
     output = "www",
     color = "#222222"
-  ),
+  ) %>%
+  suppressWarnings() %>%
+  suppressMessages(),
 
   dependencies,
   loader,

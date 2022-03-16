@@ -77,7 +77,9 @@ server <- function(input, output, session) {
       ) %>% {
         session$sendCustomMessage("toggleLoader", TRUE)
         .
-      }
+      } %>%
+      suppressWarnings() %>%
+      suppressMessages()
   })
 
   observeEvent(input$resetZoom, {
