@@ -5,6 +5,7 @@ import("dplyr")
 import("rvest")
 import("stringr")
 import("jsonlite")
+import("rvest")
 
 export(load_data, load_refugee_data, load_country_shapes)
 
@@ -83,6 +84,12 @@ load_refugee_data <- function() {
   )
 }
 
+values_as_numeric <- function(entries) {
+  lapply(entries, function(entry) {
+    as.numeric(gsub(",", ".", entry))
+  }) %>% unlist()
+}
+
 country_data <- function(raw, country) {
   ids <- sapply(seq_len(nrow(raw) / 2), function(index) {
     paste0(country, "_", index)
@@ -96,37 +103,27 @@ country_data <- function(raw, country) {
     station$lng
   }) %>% unlist()
 
-  last_update_day <- lapply(raw[[9]][c(TRUE, FALSE)], function(last_update) {
-    eet_time <- as.POSIXct(
-      (as.numeric(last_update) * (60*60*24)) - 1*60*60,
-      origin = "1899-12-30"
-    )
-
-    format(eet_time, "%Y-%m-%d")
+  last_update_day <- lapply(raw[[11]][c(TRUE, FALSE)], function(last_update) {
+    stringr::str_split(last_update, " ")[[1]][1]
   }) %>% unlist()
 
-  last_update_hour <- lapply(raw[[9]][c(TRUE, FALSE)], function(last_update) {
-    eet_time <- as.POSIXct(
-      (as.numeric(last_update) * (60*60*24)) - 1*60*60,
-      origin = "1899-12-30"
-    )
-
-    paste(format(eet_time, "%H:%M"), "EET")
+  last_update_hour <- lapply(raw[[11]][c(TRUE, FALSE)], function(last_update) {
+    stringr::str_split(last_update, " ")[[1]][2] %>%
+      paste("EET")
   }) %>% unlist()
 
   data.frame(
     id                = ids,
-    inner_border_name = raw[[3]][c(TRUE, FALSE)],
-    outer_border_name = raw[[3]][c(FALSE, TRUE)],
-    car_queue_km      = raw[[5]][c(TRUE, FALSE)],
-    car_queue_hours   = raw[[6]][c(TRUE, FALSE)],
-    foot_queue_units  = raw[[7]][c(TRUE, FALSE)],
-    foot_queue_hours  = raw[[8]][c(TRUE, FALSE)],
-    last_update       = raw[[9]][c(TRUE, FALSE)],
+    inner_border_name = raw[[5]][c(TRUE, FALSE)],
+    outer_border_name = raw[[5]][c(FALSE, TRUE)],
+    car_queue_km      = raw[[7]][c(TRUE, FALSE)] %>% values_as_numeric(),
+    car_queue_hours   = raw[[8]][c(TRUE, FALSE)] %>% values_as_numeric(),
+    foot_queue_units  = raw[[9]][c(TRUE, FALSE)] %>% values_as_numeric(),
+    foot_queue_hours  = raw[[10]][c(TRUE, FALSE)] %>% values_as_numeric(),
+    last_update       = raw[[11]][c(TRUE, FALSE)],
     last_update_day   = last_update_day,
     last_update_hour  = last_update_hour,
-    telegram          = raw[[11]][c(TRUE, FALSE)],
-    map_link          = raw[[13]][c(TRUE, FALSE)],
+    telegram          = raw[[12]][c(TRUE, FALSE)],
     lat               = lats,
     lng               = lngs
   )
@@ -135,21 +132,28 @@ country_data <- function(raw, country) {
 load_data = function() {
   print("Updating online data")
 
-  url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vTmKNAxZn2cPpBqPHnRx9Hc_GPzfi7U92h05hkNuES6pA8l7IcbfdRELMkTBWGcBFoRkUdwlnfX889X/pub?output=xlsx"
-  path <- paste0(getwd(), "/data/data.xlsx")
+  url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vTmKNAxZn2cPpBqPHnRx9Hc_GPzfi7U92h05hkNuES6pA8l7IcbfdRELMkTBWGcBFoRkUdwlnfX889X/pub?output=csv"
+  url <- "https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTmKNAxZn2cPpBqPHnRx9Hc_GPzfi7U92h05hkNuES6pA8l7IcbfdRELMkTBWGcBFoRkUdwlnfX889X/pubhtml?gid=0&single=true"
+
+  path <- paste0(getwd(), "/data/data.html")
   try({
-    curl_download(url, path)
+    table <- xml2::read_html(url) %>%
+      html_elements("table") %>%
+      html_table() %>%
+      as.data.frame()
+
+    saveRDS(table, path)
   })
 
-  data <- readxl::read_xlsx(path) %>%
-  suppressWarnings() %>%
-  suppressMessages()
+  data <- readRDS(path) %>%
+    suppressWarnings() %>%
+    suppressMessages()
 
   rows <- lapply(stations, function(country) {
     mapping <- lapply(country, function(station) {
       data %>%
         add_rownames() %>%
-        filter(str_detect(...4, station$name)) %>%
+        filter(str_detect(Var.5, station$name)) %>%
         .$rowname
     })
 

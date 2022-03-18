@@ -2,40 +2,10 @@
 stations <- list(
   PL = list(
     list(
-      name = "Dorohusk-Jagodzin",
-      ua_name = "Ягодин - Дорогуск",
-      lat = 51.1801864,
-      lng = 23.81343
-    ),
-    list(
-      name = "Uscilug-Zosin",
-      ua_name = "Устилуг - Зосин",
-      lat = 50.8570556,
-      lng = 24.1411256
-    ),
-    list(
-      name = "Uhrynow-Dolhobyczow",
-      ua_name = "Угринів - Долгобичув",
-      lat = 50.5781986,
-      lng = 24.0913567
-    ),
-    list(
       name = "Rawa Ruska-Hrebenne",
       ua_name = "Рава-Руська - Хребенне",
       lat = 50.2743866,
       lng = 23.5887193
-    ),
-    list(
-      name = "Budomierz-Hruszow",
-      ua_name = "Грушів - Будомєж",
-      lat = 50.0968670,
-      lng = 23.2791602
-    ),
-    list(
-      name = "Krakovets-Korczowa",
-      ua_name = "Краківець - Корчова",
-      lat = 49.9565213,
-      lng = 23.1148052
     ),
     list(
       name = "Medyka-Shehyni",
@@ -48,16 +18,39 @@ stations <- list(
       ua_name = "Смільниця - Кросценко",
       lat = 49.4811188,
       lng = 22.7013158
+    ),
+    list(
+      name = "Krakovets-Korczowa",
+      ua_name = "Краківець - Корчова",
+      lat = 49.9565213,
+      lng = 23.1148052
+    ),
+    list(
+      name = "Dorohusk-Jagodzin",
+      ua_name = "Ягодин - Дорогуск",
+      lat = 51.1801864,
+      lng = 23.81343
+    ),
+    list(
+      name = "Budomierz-Hruszow",
+      ua_name = "Грушів - Будомєж",
+      lat = 50.0968670,
+      lng = 23.2791602
+    ),
+    list(
+      name = "Uhrynow-Dolhobyczow",
+      ua_name = "Угринів - Долгобичув",
+      lat = 50.5781986,
+      lng = 24.0913567
+    ),
+    list(
+      name = "Uscilug-Zosin",
+      ua_name = "Устилуг - Зосин",
+      lat = 50.8570556,
+      lng = 24.1411256
     )
   ),
   SK = list(
-    list(
-      name = "Malyi Bereznyi",
-      name_label = "Malyi Bereznyi-Ubľa",
-      ua_name = "Малий Березний - Убля",
-      lat = 48.8841483,
-      lng = 22.4202632
-    ),
     list(
       name = "Vysne Nemecke-Uzhorod",
       ua_name = "Ужгород - Вишнє Нємецьке",
@@ -70,6 +63,13 @@ stations <- list(
       ua_name = "Малі Селменці",
       lat = 48.5110891,
       lng = 22.1539950
+    ),
+    list(
+      name = "Malyi Bereznyi",
+      name_label = "Malyi Bereznyi-Ubľa",
+      ua_name = "Малий Березний - Убля",
+      lat = 48.8841483,
+      lng = 22.4202632
     )
   ),
   HU = list(
@@ -80,10 +80,10 @@ stations <- list(
       lng = 22.2078397
     ),
     list(
-      name = "Dzvinkove",
-      ua_name = "Дзвінкове",
-      lat = 48.3126936,
-      lng = 22.3317744
+      name = "Luzanka-Beregsurany",
+      ua_name = "Лужанка - Берегшурань",
+      lat = 48.1648578,
+      lng = 22.5724311
     ),
     list(
       name = "Kosyno",
@@ -92,10 +92,10 @@ stations <- list(
       lng = 22.4472294
     ),
     list(
-      name = "Luzanka-Beregsurany",
-      ua_name = "Лужанка - Берегшурань",
-      lat = 48.1648578,
-      lng = 22.5724311
+      name = "Dzvinkove",
+      ua_name = "Дзвінкове",
+      lat = 48.3126936,
+      lng = 22.3317744
     ),
     list(
       name = "Vylok - Tisabech",
@@ -145,12 +145,6 @@ stations <- list(
       lng = 27.0440781
     ),
     list(
-      name = "Sokiryany - Oknitsa",
-      ua_name = "Сокиряни - Окниця",
-      lat = 48.4387676,
-      lng = 27.4627393
-    ),
-    list(
       name = "Mohyliv-Podilskyi - Otaci",
       ua_name = "Могилів-Подільський - Отач",
       lat = 48.4448172,
@@ -161,6 +155,12 @@ stations <- list(
       ua_name = "Бронниця - Унгурь",
       lat = 48.399324,
       lng = 27.877419
+    ),
+    list(
+      name = "Sokiryany - Oknitsa",
+      ua_name = "Сокиряни - Окниця",
+      lat = 48.4387676,
+      lng = 27.4627393
     )
   )
 )
