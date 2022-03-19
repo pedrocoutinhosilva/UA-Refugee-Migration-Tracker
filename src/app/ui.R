@@ -1,3 +1,6 @@
+source("components/loader.R")
+source("components/tracker.R")
+
 dependencies <- tagList(
   tags$head(tags$link(rel = "shortcut icon", href = "icon.png")),
   tags$head(HTML("<title>Slava Ukraini - Refugee Live Information</title>")),

@@ -51,13 +51,6 @@
       "Repository": "CRAN",
       "Hash": "e8a22846fff485f0be3770c2da758713"
     },
-    "backports": {
-      "Package": "backports",
-      "Version": "1.4.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "c39fbec8a30d23e721980b8afb31984c"
-    },
     "base64enc": {
       "Package": "base64enc",
       "Version": "0.1-3",
@@ -79,13 +72,6 @@
       "Repository": "CRAN",
       "Hash": "9fe98599ca456d6552421db0d6772d8f"
     },
-    "broom": {
-      "Package": "broom",
-      "Version": "0.7.12",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "bfa8a039d77ae8d5413254e572c8abea"
-    },
     "bslib": {
       "Package": "bslib",
       "Version": "0.3.1",
@@ -99,13 +85,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "648c5b3d71e6a37e3043617489a0a0e9"
-    },
-    "cellranger": {
-      "Package": "cellranger",
-      "Version": "1.1.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "f61dbaec772ccd2e17705c1e872e9e7c"
     },
     "cli": {
       "Package": "cli",
@@ -134,20 +113,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "2ba81b120c1655ab696c935ef33ea716"
-    },
-    "corrplot": {
-      "Package": "corrplot",
-      "Version": "0.92",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "fcf11a91936fd5047b2ee9bc00595e36"
-    },
-    "countrycode": {
-      "Package": "countrycode",
-      "Version": "1.3.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "a1c9e131c5cbefd641e6aa56f16dfede"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -190,38 +155,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "ef47665e64228a17609d6df877bf86f2"
-    },
-    "echarts4r": {
-      "Package": "echarts4r",
-      "Version": "0.4.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "39890873e9b9b789db8878f5f5707c5b"
-    },
-    "echarts4r.assets": {
-      "Package": "echarts4r.assets",
-      "Version": "0.0.1",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "Remotes": "JohnCoene/echarts4r",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "echarts4r.assets",
-      "RemoteUsername": "JohnCoene",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "77b1fe01390aaf3892babff646673b37c777cd99",
-      "Hash": "d1c909a5a5fa68c5ccc957750054608b"
-    },
-    "echarts4r.maps": {
-      "Package": "echarts4r.maps",
-      "Version": "0.0.2",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "echarts4r.maps",
-      "RemoteUsername": "JohnCoene",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "63be2b2d8ea35c37515cef93b1e2c39eea707c13",
-      "Hash": "160287df58694c75a9e9a735486651da"
     },
     "ellipsis": {
       "Package": "ellipsis",
@@ -550,20 +483,6 @@
       "Repository": "CRAN",
       "Hash": "9c59de1357dc209868b5feb5c9f0fe2f"
     },
-    "readxl": {
-      "Package": "readxl",
-      "Version": "1.3.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "63537c483c2dbec8d9e3183b3735254a"
-    },
-    "rematch": {
-      "Package": "rematch",
-      "Version": "1.0.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "c66b930d20bb6d858cd18e1cebcfae5c"
-    },
     "renv": {
       "Package": "renv",
       "Version": "0.14.0",
@@ -682,13 +601,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "8a8f02d1934dfd6431c671361510dd0b"
-    },
-    "tidyr": {
-      "Package": "tidyr",
-      "Version": "1.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "d8b95b7fee945d7da6888cf7eb71a49c"
     },
     "tidyselect": {
       "Package": "tidyselect",

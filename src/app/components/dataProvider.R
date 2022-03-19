@@ -1,13 +1,15 @@
 import("utils")
-import("readxl")
-import("curl")
 import("dplyr")
 import("rvest")
 import("stringr")
 import("jsonlite")
-import("rvest")
+import("xml2")
 
-export(load_data, load_refugee_data, load_country_shapes)
+export(
+  load_data,
+  load_refugee_data,
+  load_country_shapes
+)
 
 stations <- use("data/stations.R")$stations
 
@@ -132,10 +134,9 @@ country_data <- function(raw, country) {
 load_data = function() {
   print("Updating online data")
 
-  url <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vTmKNAxZn2cPpBqPHnRx9Hc_GPzfi7U92h05hkNuES6pA8l7IcbfdRELMkTBWGcBFoRkUdwlnfX889X/pub?output=csv"
   url <- "https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTmKNAxZn2cPpBqPHnRx9Hc_GPzfi7U92h05hkNuES6pA8l7IcbfdRELMkTBWGcBFoRkUdwlnfX889X/pubhtml?gid=0&single=true"
 
-  path <- paste0(getwd(), "/data/data.html")
+  path <- paste0(getwd(), "/data/data.rds")
   try({
     table <- xml2::read_html(url) %>%
       html_elements("table") %>%

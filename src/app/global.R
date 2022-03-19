@@ -1,21 +1,14 @@
 library(shiny)
 library(modules)
 library(leaflet)
-library(echarts4r)
-library(echarts4r.assets)
-library(echarts4r.maps)
 library(imola)
 library(curl)
 library(rvest)
 library(sass)
 library(shiny.pwa)
-library(rvest)
 library(xml2)
-library(readxl)
 
 source("components/utils.R")
-source("components/loader.R")
-source("components/tracker.R")
 
 dataProvider <- use("components/dataProvider.R")
 

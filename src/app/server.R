@@ -1,13 +1,10 @@
-# defaultMapBounds <- function(...) {
-#   fitBounds(..., 19.33594, 53.21261, 31.77246, 46.52863)
-# }
-
-# Define server logic required to draw a histogram
 server <- function(input, output, session) {
   print("Loading map")
 
   output$mymap <- renderLeaflet({
-    checkpoints <- state$checkpoints
+    checkpoints <- state$checkpoints %>%
+      do.call(dplyr::bind_rows, .)
+
     refugees <- state$refugees
 
     leaflet(
@@ -19,48 +16,10 @@ server <- function(input, output, session) {
       fitBounds(19.33594, 53.21261, 31.77246, 46.52863) %>%
       addGeoJSON(state$shapes) %>%
       addAwesomeMarkers(
-        data = checkpoints$PL,
-        layerId = ~ checkpoints$PL$id,
+        data = checkpoints,
+        layerId = ~ checkpoints$id,
         icon = makeIcon(
-          className = getIconClass(checkpoints$PL)
-        )
-      ) %>%
-      addAwesomeMarkers(
-        data = checkpoints$SK,
-        layerId = ~ checkpoints$SK$id,
-        icon = makeIcon(
-          iconUrl = "/placeholder.png",
-          iconWidth = 30,
-          iconHeight = 30,
-          className = getIconClass(checkpoints$SK)
-        )
-      ) %>%
-      addAwesomeMarkers(
-        data = checkpoints$RO,
-        layerId = ~ checkpoints$RO$id,
-        icon = makeIcon(
-          className = getIconClass(checkpoints$RO)
-        )
-      ) %>%
-      addAwesomeMarkers(
-        data = checkpoints$HU,
-        layerId = ~ checkpoints$HU$id,
-        icon = makeIcon(
-          className = getIconClass(checkpoints$HU)
-        )
-      ) %>%
-      addAwesomeMarkers(
-        data = checkpoints$MD,
-        layerId = ~ checkpoints$MD$id,
-        icon = makeIcon(
-          className = getIconClass(checkpoints$MD)
-        )
-      ) %>%
-      addAwesomeMarkers(
-        data = checkpoints$MD,
-        layerId = ~ checkpoints$MD$id,
-        icon = makeIcon(
-          className = getIconClass(checkpoints$MD)
+          className = getIconClass(checkpoints)
         )
       ) %>%
       addLabelOnlyMarkers(
@@ -77,8 +36,6 @@ server <- function(input, output, session) {
           className = "country-refugees"
         )
       ) %>%
-      suppressWarnings() %>%
-      suppressMessages() %>%
       htmlwidgets::onRender("
         function(el,x) {
           $('#overlayLoading').addClass('disabled');
@@ -87,7 +44,9 @@ server <- function(input, output, session) {
           console.log('disconnecting from server');
           Shiny.shinyapp.$socket.close();
         }
-      ")
+      ") %>%
+      suppressWarnings() %>%
+      suppressMessages()
   })
 
   observeEvent(input$browserComplete, {

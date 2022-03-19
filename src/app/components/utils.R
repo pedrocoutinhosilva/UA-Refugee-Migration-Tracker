@@ -34,7 +34,6 @@ getPedestrianState <- function(value) {
 
 getIconClass <- function(df) {
   cars <- lapply(df$car_queue_hours, getCarState)
-
   pedestrian <- lapply(df$foot_queue_hours, getPedestrianState)
 
   lapply(seq_len(nrow(df)), function(index) {
@@ -152,14 +151,7 @@ checkpointPopup <- function(inner,
   )
 }
 
-checkpointPopups <- function(df) {
-  lapply(seq_len(nrow(df)), function(index) {
-    checkpointPopup(df[index, ]$id)
-  })
-}
-
 refugeeIcons <- function(data) {
-
   mil_icon <- tags$i(class = "million fas fa-male")
   hundreds_icon <- tags$i(class = "hundred fas fa-male")
 
@@ -182,7 +174,11 @@ refugeeIcons <- function(data) {
           class = "country-refugee-label",
           div(class = "country-refugee-name", row$geomaster_name),
           div(class = "country-refugee-icons", icons),
-          div(class = "country-refugee-value", format(as.numeric(row$value), big.mark = " "))
-        ) %>% as.character() %>% HTML()
+          div(class = "country-refugee-value",
+            format(as.numeric(row$value), big.mark = " ")
+          )
+        ) %>%
+        as.character() %>%
+        HTML()
     })
 }
