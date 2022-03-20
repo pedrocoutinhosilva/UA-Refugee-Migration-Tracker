@@ -19,7 +19,7 @@ app_title <- h1(
 
 helpMenu <- function(...) {
   flexPanel(
-    class = "map-controls-help active",
+    class = "map-controls-help",
     ...
   )
 }
