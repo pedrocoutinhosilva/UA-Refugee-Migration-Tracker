@@ -4,14 +4,34 @@ import("rvest")
 import("stringr")
 import("jsonlite")
 import("xml2")
+import("shiny")
 
 export(
   load_data,
   load_refugee_data,
-  load_country_shapes
+  load_country_shapes,
+  load_city_data,
+  load_interest_regions
 )
 
 stations <- use("data/stations.R")$stations
+
+load_interest_regions <- function() {
+  list(
+    transnistria = readLines("data/transnistria.geojson", warn = FALSE) %>%
+      paste(collapse = "\n") %>%
+      fromJSON(simplifyVector = FALSE),
+    crimea = readLines("data/Crimea.json", warn = FALSE) %>%
+      paste(collapse = "\n") %>%
+      fromJSON(simplifyVector = FALSE),
+    donetsk = readLines("data/Donetsk.json", warn = FALSE) %>%
+      paste(collapse = "\n") %>%
+      fromJSON(simplifyVector = FALSE),
+    luhansk = readLines("data/Luhansk.json", warn = FALSE) %>%
+      paste(collapse = "\n") %>%
+      fromJSON(simplifyVector = FALSE)
+  )
+}
 
 load_country_shapes <- function() {
   path <- "data/country_shapes.rds"
@@ -65,6 +85,60 @@ load_country_shapes <- function() {
   }
 
   geojson
+}
+
+load_city_data <- function() {
+  url <- "https://en.wikipedia.org/api/rest_v1/page/segments/Control_of_cities_during_the_Russo-Ukrainian_War"
+  city_info <- paste0(getwd(), "/data/ua.json")
+  path <- paste0(getwd(), "/data/city_situation.json")
+
+  city_list <- jsonlite::fromJSON(city_info)
+
+  city_situation <- jsonlite::fromJSON(url) %>%
+    .$segmentedContent %>%
+    xml2::read_html() %>%
+    html_elements("table") %>%
+    html_table() %>%
+    do.call(bind_rows, .) %>%
+    as.data.frame()
+
+  data <- city_situation %>%
+    left_join(city_list, by = c("Name" = "city")) %>%
+    filter(!is.na(lat)) %>%
+    mutate(color = case_when(
+      str_detect(`Held by`, "Contested") ~ "orange",
+      str_detect(`Held by`, "Truce") ~ "gray",
+      str_detect(`Held by`, "Russia") ~ "red",
+      str_detect(`Held by`, "Luhansk PR") ~ "red",
+      str_detect(`Held by`, "Donetsk PR") ~ "red",
+      str_detect(`Held by`, "Ukraine") ~ "blue",
+      TRUE ~ "white"
+    )) %>%
+    mutate(control = case_when(
+      str_detect(`Held by`, "Contested") ~ "Contested",
+      str_detect(`Held by`, "Truce") ~ "Truce",
+      str_detect(`Held by`, "Russia") ~ "Russia",
+      str_detect(`Held by`, "Luhansk PR") ~ "Russia",
+      str_detect(`Held by`, "Donetsk PR") ~ "Russia",
+      str_detect(`Held by`, "Ukraine") ~ "Ukraine",
+      TRUE ~ "white"
+    )) %>%
+    mutate(size = case_when(
+        str_detect(`capital`, "admin") ~ 10,
+        str_detect(`capital`, "primary") ~ 7,
+        str_detect(`capital`, "minor") ~ 5,
+        TRUE ~ 3
+    ))
+
+  data.frame(
+    id = data$Name,
+    lat = as.numeric(data$lat),
+    lng = as.numeric(data$lng),
+    color = data$color,
+    size = data$size,
+    population = data$Population,
+    control = data$control
+  )
 }
 
 load_refugee_data <- function() {

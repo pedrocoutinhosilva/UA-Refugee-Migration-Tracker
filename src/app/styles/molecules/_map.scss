@@ -12,7 +12,7 @@
 
   &.active {
     opacity: 0.6;
-    filter: invert(1);
+    filter: invert(0.9);
   }
 }
 
@@ -59,4 +59,220 @@
 
 .leaflet-control-zoom {
   display: none;
+}
+
+.leaflet-popup-pane {
+  .leaflet-popup {
+    transition: opacity 0.5s ease;
+  }
+
+  .leaflet-popup-content-wrapper {
+    background: #222;
+    border: 1px solid white;
+    color: white;
+    border-radius: 7px;
+
+    .leaflet-popup-content {
+      margin: 5px 20px;
+    }
+  }
+
+  .leaflet-popup-tip-container {
+    display: none;
+  }
+}
+
+@-webkit-keyframes appear {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.hover-city-label {
+  /* background: #222; */
+  color: white;
+  animation: appear 0.5s normal forwards ease-in-out;
+  border-radius: 5px;
+  padding: 5px 15px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: opacity 0.5 ease;
+  filter:
+    drop-shadow(black 2px 2px 0px)
+    drop-shadow(black -2px -2px 0px)
+    drop-shadow(black -2px 2px 0px)
+    drop-shadow(black 2px -2px 0px);
+
+  &.leaflet-tooltip-right {
+    &:before {
+      width: 24px;
+      height: 24px;
+      transform: rotate(45deg);
+      margin-left: 0px;
+      border: unset;
+      border-left: 1px solid white;
+      top: calc(50% - 10px);
+    }
+
+    & > div {
+      margin-left: -3px;
+
+      & > div:nth-of-type(1) {
+        margin-top: -14px;
+      }
+    }
+  }
+
+  &.leaflet-tooltip-left {
+    &:before {
+      width: 24px;
+      height: 24px;
+      transform: rotate(-45deg);
+      margin-right: 0px;
+      border: unset;
+      border-right: 1px solid white;
+      top: calc(50% - 10px);
+    }
+
+    & > div {
+      margin-right: -3px;
+
+      & > div:nth-of-type(1) {
+        margin-top: -14px;
+      }
+    }
+  }
+}
+
+/* .custom-asset-marker:hover, */
+.city-control-marker:hover {
+  animation: pulsate 3s ease-out infinite !important;
+}
+
+@-webkit-keyframes pulsate {
+    0%   { filter: drop-shadow(0 0 0 white); }
+    50%  { filter:
+      drop-shadow(0 0 10px white)
+      drop-shadow(0 0 25px white)
+      drop-shadow(0 0 35px white)
+      drop-shadow(0 0 50px white);
+    }
+    100% { filter: drop-shadow(0 0 0 white); }
+}
+
+.city-control-marker {
+  transition: opacity 0.5s ease;
+
+  &.disabled {
+    opacity: 0;
+    pointer-events: none !important;
+  }
+
+  &.control-Ukraine {
+    stroke: $focus-ukraine;
+    fill: $focus-ukraine;
+  }
+  &.control-Russia {
+    stroke: $focus-russia;
+    fill: $focus-russia;
+  }
+  &.control-Contested {
+    animation: pulsate-contested 3s ease-out infinite;
+
+    stroke: $focus-contested;
+    fill: $focus-contested;
+  }
+  &.control-Truce {
+    stroke: $focus-truce;
+    fill: $focus-truce;
+  }
+}
+@-webkit-keyframes pulsate-contested {
+    0%   { filter: drop-shadow(0 0 0 $focus-contested); }
+    50%  { filter:
+      drop-shadow(0 0 2px $focus-contested)
+      drop-shadow(0 0 5px $focus-contested);
+    }
+    100% { filter: drop-shadow(0 0 0 $focus-contested); }
+}
+
+.country-shape {
+  transition:
+    opacity 0.5s ease,
+    fill-opacity 0.5s ease,
+    fill 0.5s ease;
+
+  &.disabled {
+    opacity: 0;
+  }
+  &.focused {
+    fill-opacity: 1;
+    fill: $focus-country;
+  }
+}
+
+
+.control-wrapper {
+  position: relative;
+}
+.map-controls-help {
+  position: absolute;
+
+  flex-direction: column !important;
+  width: 220px !important;
+  background: #000000;
+  top: 5px;
+  z-index: -1;
+  bottom: 0;
+  left: 80%;
+  height: auto !important;
+  text-align: left;
+  padding-left: 18px;
+  color: white;
+  border: 1px solid;
+  border-radius: 0 10px 10px 0;
+  transition: all 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    span {
+      font-weight: 900;
+      animation: color-change 3s infinite;
+    }
+  }
+
+  .separator {
+    flex: 0 !important;
+    flex-basis: 15px !important;
+    background: transparent;
+  }
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+@keyframes color-change {
+  0% { color: $ua-yellow; }
+  50% { color: $ua-blue; }
+  100% { color: $ua-yellow; }
+}
+
+.map-help-wrapper {
+  background: transparent;
+  border: none;
+
+  .fas:before {
+    filter:
+      drop-shadow(black 2px 2px 0px)
+      drop-shadow(black -2px -2px 0px)
+      drop-shadow(black -2px 2px 0px)
+      drop-shadow(black 2px -2px 0px);
+  }
 }

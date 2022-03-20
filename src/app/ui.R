@@ -13,28 +13,53 @@ dependencies <- tagList(
 
 app_title <- h1(
   class = "app-title",
-  "Ukraine Refugees Live Migration Information"
+  "Ukraine Migrants - Live Information"
 )
+
+helpMenu <- function(...) {
+  flexPanel(
+    class = "map-controls-help active",
+    ...
+  )
+}
 
 map_controls <- gridPanel(
   id = "overlayControlGrid",
 
   columns = "auto auto 1fr",
-  rows = "50px 1fr auto auto 10px",
+  rows = "50px 1fr auto auto auto auto 10px",
   gap = "15px",
 
   areas = c(
     "...         ...",
     "...         ...",
+    "map-help    ...",
+    "map-type    ...",
     "map-control ...",
     "map-info    ...",
     "...         ..."
+  ),
+
+  `map-help` = flexPanel(
+    class = "control-wrapper map-help-wrapper",
+    direction = "column",
+    style = "text-align: center;",
+
+    tags$i(
+      class = "fas fa-question-circle legend-control",
+      title = "Map information",
+      onclick = "toggleHelp(null);"
+    )
   ),
 
   `map-info` = flexPanel(
     class = "control-wrapper",
     direction = "column",
     style = "text-align: center;",
+
+    helpMenu(
+      div("About this project...")
+    ),
 
     tags$i(
       class = "fas fa-info-circle legend-control active",
@@ -49,18 +74,41 @@ map_controls <- gridPanel(
     gap = "10px",
     style = "text-align: center;",
 
-    tags$i(
-      class = "fas fa-male legend-control active",
-      title = "Toggle Refugee Numbers",
-      onclick = "toggleCountries(this)"
+    helpMenu(
+      div("Border Control Points"),
+      div("Refugee Numbers"),
+      div(span("NEW"), "Ukraine Cities Control"),
+      div("Country Colors"),
+      div("View Map Tiles"),
+      div(class = "separator"),
+      div("Zoom In"),
+      div("Zoom Out"),
+      div(class = "separator"),
+      div("Reset Map position")
     ),
+
     tags$i(
-      class = "fas fa-car legend-control active",
+      class = "fas fa-hiking legend-control active border-points",
       title = "Toggle Border Control Points",
       onclick = "toggleBorders(this)"
     ),
     tags$i(
-      class = "fas fa-map legend-control",
+      class = "fas fa-male legend-control active refugee-numbers",
+      title = "Toggle Refugee Numbers",
+      onclick = "toggleCountries(this)"
+    ),
+    tags$i(
+      class = "fas fa-city legend-control contested-cities active",
+      title = "Toggle Cities",
+      onclick = "toggleCities(this)"
+    ),
+    tags$i(
+      class = "fas fa-flag legend-control active country-focus",
+      title = "Toggle Country Focus",
+      onclick = "toggleCountryShapes(this)"
+    ),
+    tags$i(
+      class = "fas fa-map legend-control map-tiles",
       title = "Toggle Map Tiles",
       onclick = "toggleTiles(this)"
     ),
@@ -77,6 +125,32 @@ map_controls <- gridPanel(
     tags$i(
       class = "fas fa-crosshairs legend-control active",
       onclick = "resetZoom()"
+    )
+  ),
+
+  `map-type` = flexPanel(
+    class = "control-wrapper",
+    direction = "column",
+    gap = "10px",
+    style = "text-align: center;",
+
+    helpMenu(
+      div("Border Points Information"),
+      div(span("NEW"), "City Control View")
+    ),
+
+    tags$i(
+      class = "fas fa-expand-arrows-alt legend-control external-view",
+      style = "filter: invert(1);",
+      title = "Toggle External View",
+      onclick = "toggleExternal(this)"
+    ),
+    div(class = "separator"),
+    tags$i(
+      class = "fas fa-compress-arrows-alt legend-control internal-view",
+      style = "filter: invert(1);",
+      title = "Toggle Internal View",
+      onclick = "toggleInternal(this)"
     )
   )
 )
@@ -112,8 +186,9 @@ map_legend <- gridPanel(
       Data is compiled from diferent sources, updated multiple times a day.
     "),
     p("
-      Includes migrant information in neighboring countries, as well as live
-      information regarding border control points with neighboring countries.
+      Includes migrant information in neighboring countries, city level control,
+      as well as live information regarding border control points with
+      neighboring countries.
     ")
   ),
 
@@ -320,18 +395,6 @@ details_overlay <- gridPanel(
       "..."
     )
   ),
-
-  # popup = checkpointPopup(
-  #   uiOutput("checkpointInnerTitle"),
-  #   uiOutput("checkpointOuterTitle"),
-  #   uiOutput("carHours"),
-  #   uiOutput("carKM"),
-  #   uiOutput("pedestrianHours"),
-  #   uiOutput("pedestrianNumber"),
-  #   uiOutput("lastUpdate"),
-  #   uiOutput("telegramChats"),
-  #   uiOutput("googleLink")
-  # )
   popup = checkpointPopup(
     div(id = "checkpointInnerTitle"),
     div(id = "checkpointOuterTitle"),

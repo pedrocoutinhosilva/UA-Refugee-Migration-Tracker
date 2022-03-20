@@ -29,6 +29,10 @@ let getPedestrianState = function(entry) {
   return("green")
 }
 
+let toggleHelp = function(state) {
+  $(".map-controls-help").toggleClass("active", state);
+}
+
 $( document ).ready(function() {
   // Map events
   $('#mymap').on('mouseenter', '.country-shape', function() {
@@ -42,6 +46,11 @@ $( document ).ready(function() {
   const delta = 6;
   let startX;
   let startY;
+
+  document.addEventListener('mousedown', function (event) {
+
+    toggleHelp(false);
+  });
 
   document.getElementById('mymap').addEventListener('mousedown', function (event) {
     startX = event.pageX;
@@ -145,15 +154,32 @@ $( document ).ready(function() {
 });
 
 let resetZoom = function() {
+  let zoomBox = $(".legend-control.country-focus").hasClass("active")
+    ? station_data.map_bounds
+    : station_data.map_bounds_focus
+
   HTMLWidgets
     .getInstance(document.getElementById("mymap"))
-    .getMap().fitBounds(station_data.map_bounds);
+    .getMap().fitBounds(zoomBox);
 }
 
 // Map controls
 let toggleTiles = function(target) {
   $(".leaflet-pane.leaflet-tile-pane").toggleClass("active");
   $(target).toggleClass("active");
+}
+
+let toggleCities = function(target) {
+  $(".city-control-marker").toggleClass("disabled");
+  $(target).toggleClass("active");
+}
+
+let toggleCountryShapes = function(target) {
+  $(".country-shape.bordering").toggleClass("disabled");
+  $(".country-shape.ukraine").toggleClass("focused");
+  $(target).toggleClass("active");
+
+  resetZoom();
 }
 
 let toggleCountries = function(target) {
@@ -164,6 +190,85 @@ let toggleCountries = function(target) {
 let toggleBorders = function(target) {
   $(".leaflet-marker-pane .custom-asset-marker").toggleClass("disabled");
   $(target).toggleClass("active");
+}
+
+let toggleInternal = function(target) {
+  let state = [
+    {
+      target: "border-points",
+      state: false
+    },
+    {
+      target: "refugee-numbers",
+      state: false
+    },
+    {
+      target: "contested-cities",
+      state: true
+    },
+    {
+      target: "country-focus",
+      state: false
+    },
+    {
+      target: "map-tiles",
+      state: true
+    }
+  ]
+
+  state.map(function(entry) {
+    if (entry.state) {
+      if (!$(`.legend-control.${entry.target}`).hasClass("active")) {
+        $(`.legend-control.${entry.target}`).click()
+      }
+    } else {
+      if ($(`.legend-control.${entry.target}`).hasClass("active")) {
+        $(`.legend-control.${entry.target}`).click()
+      }
+    }
+  });
+
+  togglePopup(false);
+  resetZoom();
+}
+
+let toggleExternal = function(target) {
+  let state = [
+    {
+      target: "border-points",
+      state: true
+    },
+    {
+      target: "refugee-numbers",
+      state: true
+    },
+    {
+      target: "contested-cities",
+      state: false
+    },
+    {
+      target: "country-focus",
+      state: true
+    },
+    {
+      target: "map-tiles",
+      state: false
+    }
+  ]
+
+  state.map(function(entry) {
+    if (entry.state) {
+      if (!$(`.legend-control.${entry.target}`).hasClass("active")) {
+        $(`.legend-control.${entry.target}`).click()
+      }
+    } else {
+      if ($(`.legend-control.${entry.target}`).hasClass("active")) {
+        $(`.legend-control.${entry.target}`).click()
+      }
+    }
+  });
+
+  resetZoom();
 }
 
 let selectMarker = function(target) {

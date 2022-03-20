@@ -1,3 +1,31 @@
+getHTMLPopup <- function(data) {
+  lapply(seq_len(nrow(data)), function(index) {
+    row <- data[index, ]
+
+    div(
+      div(
+        span(class = "popup-title", row$id)
+      ),
+      div(
+        span(class = "popup-metric-title", "Population: "),
+        span(class = "popup-metric-value", row$population)
+      ),
+      div(
+        span(class = "popup-metric-title", "Held by: "),
+        span(class = "popup-metric-value", row$control)
+      )
+    ) %>% htmltools::doRenderTags()
+  })
+}
+
+getCityPopupClass <- function(data) {
+  lapply(seq_len(nrow(data)), function(index) {
+    row <- data[index, ]
+
+    glue::glue("city-control-marker control-{row$control}")
+  }) %>% unlist()
+}
+
 server <- function(input, output, session) {
   print("Loading map")
 
@@ -8,7 +36,7 @@ server <- function(input, output, session) {
     refugees <- state$refugees
 
     leaflet(
-      options = leafletOptions(preferCanvas = TRUE)
+      options = leafletOptions()
     ) %>%
       addProviderTiles(providers$Stamen.TonerLite,
         options = providerTileOptions(noWrap = TRUE)
@@ -22,11 +50,27 @@ server <- function(input, output, session) {
           className = getIconClass(checkpoints)
         )
       ) %>%
+      addCircleMarkers(
+        data = state$cities,
+        # popup = ~ getHTMLPopup(state$cities),
+        label = ~ getHTMLPopup(state$cities),
+        layerId = ~ state$cities$id,
+        color = ~ state$cities$color,
+        radius = ~ state$cities$size,
+        fillOpacity = 1,
+        options = pathOptions(
+          className = getCityPopupClass(state$cities)
+        ),
+        labelOptions = labelOptions(
+          className = "hover-city-label",
+          textsize = "12px"
+        )
+      ) %>%
       addLabelOnlyMarkers(
         data = refugees,
         label = refugeeIcons(refugees),
         layerId = ~ refugees$geomaster_name,
-        labelOptions = leaflet::labelOptions(
+        labelOptions = labelOptions(
           noHide = TRUE,
           direction = "bottom",
           textOnly = TRUE,
