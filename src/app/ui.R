@@ -258,6 +258,11 @@ map_legend <- gridPanel(
       target = "_blank",
       href = "https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTmKNAxZn2cPpBqPHnRx9Hc_GPzfi7U92h05hkNuES6pA8l7IcbfdRELMkTBWGcBFoRkUdwlnfX889X/pubhtml?gid=0&single=true",
       "Border information - Моніторинг черг на кордоні"
+    ),
+    a(
+      target = "_blank",
+      href = "https://en.wikipedia.org/wiki/Control_of_cities_during_the_Russo-Ukrainian_War",
+      "Control of cities during the Russo-Ukrainian War"
     )
   ),
 

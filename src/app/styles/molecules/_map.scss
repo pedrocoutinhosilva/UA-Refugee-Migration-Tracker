@@ -98,10 +98,14 @@
   box-shadow: none;
   transition: opacity 0.5 ease;
   filter:
-    drop-shadow(black 2px 2px 0px)
-    drop-shadow(black -2px -2px 0px)
-    drop-shadow(black -2px 2px 0px)
-    drop-shadow(black 2px -2px 0px);
+    drop-shadow(black 1px 1px 0px)
+    drop-shadow(black -1px -1px 0px)
+    drop-shadow(black -1px 1px 0px)
+    drop-shadow(black 1px -1px 0px)
+      drop-shadow(black 2px 2px 0px)
+      drop-shadow(black -2px -2px 0px)
+      drop-shadow(black -2px 2px 0px)
+      drop-shadow(black 2px -2px 0px);
 
   &.leaflet-tooltip-right {
     &:before {
