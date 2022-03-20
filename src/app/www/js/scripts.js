@@ -1,3 +1,15 @@
+let updateURLParamether = function(parameter, value) {
+  // Construct URLSearchParams object instance from current URL querystring.
+  var queryParams = new URLSearchParams(window.location.search);
+
+  // Set new or modify existing parameter value.
+  queryParams.set(parameter, value);
+
+  // Replace current querystring with the new one.
+  history.replaceState(null, null, "?"+queryParams.toString());
+}
+
+
 let getCarState = function(entry) {
   if (isNaN(entry)) {
     return("none")
@@ -47,8 +59,10 @@ $( document ).ready(function() {
   let startX;
   let startY;
 
-  document.addEventListener('mousedown', function (event) {
-
+  document.getElementById('mymap').addEventListener('mousedown', function (event) {
+    toggleHelp(false);
+  });
+  document.getElementById('mymap').addEventListener('touch', function (event) {
     toggleHelp(false);
   });
 
@@ -230,6 +244,7 @@ let toggleInternal = function(target) {
 
   togglePopup(false);
   resetZoom();
+  updateURLParamether("v", "city");
 }
 
 let toggleExternal = function(target) {
@@ -269,6 +284,7 @@ let toggleExternal = function(target) {
   });
 
   resetZoom();
+  updateURLParamether("v", "border");
 }
 
 let selectMarker = function(target) {

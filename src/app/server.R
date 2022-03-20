@@ -27,9 +27,32 @@ getCityPopupClass <- function(data) {
 }
 
 server <- function(input, output, session) {
-  print("Loading map")
+  # Observe changes in the url search parameters
+  observeEvent(session$clientData$url_search, {
+    query <- parseQueryString(session$clientData$url_search)
+
+    targetView <- ""
+    if (!is.null(query$v)) {
+      targetView <- switch(
+        query$v,
+        city = ".legend-control.internal-view",
+        border = ".legend-control.external-view",
+        ""
+      )
+    }
+
+    output$filterInit <- renderUI({
+      tags$script(glue::glue("
+        let initView = function() {{
+          $('{targetView}').click();
+        }}
+      "))
+    })
+    outputOptions(output, "filterInit", suspendWhenHidden = FALSE)
+  })
 
   output$mymap <- renderLeaflet({
+    print("Loading map")
     checkpoints <- state$checkpoints %>%
       do.call(dplyr::bind_rows, .)
 
@@ -85,6 +108,7 @@ server <- function(input, output, session) {
           $('#overlayLoading').addClass('disabled');
           Shiny.setInputValue('browserComplete', true, {priority: 'event'});
 
+          initView();
           console.log('disconnecting from server');
           Shiny.shinyapp.$socket.close();
         }

@@ -8,7 +8,8 @@ dependencies <- tagList(
   tags$link(rel = "stylesheet", type = "text/css", href = "css/fa.all.min.css"),
   tags$link(rel = "stylesheet", type = "text/css", href = "css/sass.min.css"),
   tags$script(src = "js/scripts.js"),
-  tags$script(paste0("let station_data = ", browser_data, ";"))
+  tags$script(paste0("let station_data = ", browser_data, ";")),
+  uiOutput("filterInit") %>% tagAppendAttributes(style = "display: none;")
 )
 
 app_title <- h1(
