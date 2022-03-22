@@ -4103,17 +4103,6 @@
     "population_proper": "7662"
   },
   {
-    "city": "Trostianets",
-    "lat": "48.5120",
-    "lng": "29.2137",
-    "country": "Ukraine",
-    "iso2": "UA",
-    "admin_name": "Vinnyts’ka Oblast’",
-    "capital": "minor",
-    "population": "7655",
-    "population_proper": "7655"
-  },
-  {
     "city": "Velykyi Dalnyk",
     "lat": "46.4658",
     "lng": "30.5583",
@@ -10946,8 +10935,8 @@
   },
   {
     "city": "Trostianets",
-    "lat": "48.3578",
-    "lng": "28.2317",
+    "lat": "50.466667",
+    "lng": "34.95",
     "country": "Ukraine",
     "iso2": "UA",
     "admin_name": "Vinnyts’ka Oblast’",

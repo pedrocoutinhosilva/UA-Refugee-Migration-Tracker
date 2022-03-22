@@ -78,7 +78,7 @@ map_controls <- gridPanel(
     helpMenu(
       div("Border Control Points"),
       div("Refugee Numbers"),
-      div(span("NEW"), "Ukraine Cities Control"),
+      div("Ukraine Cities Control"),
       div("Country Colors"),
       div("View Map Tiles"),
       div(class = "separator"),
