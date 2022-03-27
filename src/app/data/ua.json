@@ -105,7 +105,7 @@
     "country": "Ukraine",
     "iso2": "UA",
     "admin_name": "Donets’ka Oblast’",
-    "capital": "",
+    "capital": "admin",
     "population": "449498",
     "population_proper": "449498"
   },
@@ -14861,17 +14861,6 @@
     "population_proper": "1023"
   },
   {
-    "city": "Savyntsi",
-    "lat": "48.4775",
-    "lng": "29.0544",
-    "country": "Ukraine",
-    "iso2": "UA",
-    "admin_name": "Vinnyts’ka Oblast’",
-    "capital": "",
-    "population": "1022",
-    "population_proper": "1022"
-  },
-  {
     "city": "Pidlisne",
     "lat": "48.7842",
     "lng": "32.2531",
@@ -15524,17 +15513,6 @@
     "city": "Tatarbunary",
     "lat": "45.8355",
     "lng": "29.6147",
-    "country": "Ukraine",
-    "iso2": "UA",
-    "admin_name": "Odes’ka Oblast’",
-    "capital": "minor",
-    "population": "",
-    "population_proper": ""
-  },
-  {
-    "city": "Savran",
-    "lat": "48.1300",
-    "lng": "30.0794",
     "country": "Ukraine",
     "iso2": "UA",
     "admin_name": "Odes’ka Oblast’",
