@@ -326,6 +326,7 @@ load_refugee_data <- function() {
 }
 
 nakordoni_countries <- c(PL = 2, SK = 3, HU = 4, RO = 5, MD = 6)
+max_reading_age_hours <- 24
 nakordoni_types <- c(car = 4, foot = 7)
 
 # Live queues leaving Ukraine, one call per destination country and vehicle
@@ -391,6 +392,13 @@ match_queue <- function(queues, country, type, ua_name) {
   if (nrow(hits) == 0) NULL else hits[1, ]
 }
 
+# ISO 8601 as sent by Nakordoni, e.g. "2026-09-25T06:00:00+00:00".
+parse_timestamp <- function(x) {
+  x <- sub("Z$", "+0000", x)
+  x <- sub("([+-][0-9]{2}):([0-9]{2})$", "\\1\\2", x)
+  as.POSIXct(x, format = "%Y-%m-%dT%H:%M:%S%z", tz = "UTC")
+}
+
 country_data <- function(queues, country) {
   do.call(rbind, lapply(seq_along(stations[[country]]), function(index) {
     station <- stations[[country]][[index]]
@@ -405,6 +413,10 @@ country_data <- function(queues, country) {
       value(foot, "updated_at"),
       ""
     )
+    updated <- parse_timestamp(last_update)
+    local_time <- function(format) {
+      if (is.na(updated)) "" else format(updated, format, tz = "Europe/Kyiv")
+    }
 
     data.frame(
       id                = paste0(country, "_", index),
@@ -415,8 +427,8 @@ country_data <- function(queues, country) {
       foot_queue_units  = value(foot, "queue"),
       foot_queue_hours  = round(value(foot, "wait_min") / 60, 1),
       last_update       = last_update,
-      last_update_day   = substr(last_update, 1, 10),
-      last_update_hour  = substr(last_update, 12, 16),
+      last_update_day   = local_time("%Y-%m-%d"),
+      last_update_hour  = local_time("%H:%M %Z"),
       source_url        = coalesce(
         value(car, "source_url"),
         value(foot, "source_url"),
@@ -437,6 +449,20 @@ load_data <- function() {
     validate = function(data) !is.null(data) && nrow(data) > 0,
     max_age_mins = 120
   )
+
+  # Some checkpoints keep reporting a value that stopped updating long ago;
+  # show those as unavailable rather than as a current queue.
+  if (!is.null(queues)) {
+    age <- difftime(Sys.time(), parse_timestamp(queues$updated_at), units = "hours")
+    stale <- !is.na(age) & age > max_reading_age_hours
+    if (any(stale)) {
+      message(
+        "Ignoring ", sum(stale), " border readings older than ",
+        max_reading_age_hours, "h"
+      )
+    }
+    queues <- queues[!stale, ]
+  }
 
   checkpoints <- lapply(names(nakordoni_countries), function(country) {
     country_data(queues, country)
