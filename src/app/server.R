@@ -61,7 +61,7 @@ server <- function(input, output, session) {
     leaflet(
       options = leafletOptions()
     ) %>%
-      addProviderTiles(providers$Stamen.TonerLite,
+      addProviderTiles(providers$Esri.WorldGrayCanvas,
         options = providerTileOptions(noWrap = TRUE)
       ) %>%
       fitBounds(19.33594, 53.21261, 31.77246, 46.52863) %>%

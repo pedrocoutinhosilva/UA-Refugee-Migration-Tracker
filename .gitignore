@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+.Renviron
+src/app/data/checkpoint_queues.rds

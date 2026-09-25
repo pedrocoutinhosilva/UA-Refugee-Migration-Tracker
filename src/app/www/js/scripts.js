@@ -103,11 +103,11 @@ $( document ).ready(function() {
           let car_state = getCarState(parseFloat(point_data.car_queue_hours));
           let pedestrian_state = getPedestrianState(parseFloat(point_data.foot_queue_hours));
 
-          document.getElementById("carKM").innerHTML = function() {
+          document.getElementById("carUnits").innerHTML = function() {
             switch (car_state) {
               case "none": return(`<span></span><span>Not available</span>`)
                 break;
-              default: return(`<span>${parseFloat(point_data.car_queue_km)}</span><span> KM</span>`)
+              default: return(`<span>${parseFloat(point_data.car_queue_units)}</span><span> Cars</span>`)
             }
           }();
 
@@ -140,8 +140,8 @@ $( document ).ready(function() {
             <span>${point_data.last_update_hour}</span>
           `;
 
-          document.getElementById("telegramChats").innerHTML = `
-            <a target = "_target" href = "${point_data.telegram}">${point_data.telegram}</a>
+          document.getElementById("sourceLink").innerHTML = `
+            <a target = "_target" href = "${point_data.source_url}">${point_data.source_url}</a>
           `;
 
           document.getElementById("googleLink").innerHTML = `

@@ -3,10 +3,8 @@ library(modules)
 library(leaflet)
 library(imola)
 library(curl)
-library(rvest)
 library(sass)
 library(shiny.pwa)
-library(xml2)
 
 source("components/utils.R")
 
@@ -24,9 +22,13 @@ state <- list(
 
 browser_data <- jsonlite::toJSON(state)
 
-sass(
-  sass::sass_file("styles/main.scss"),
-  cache = NULL,
-  options = sass_options(output_style = "compressed"),
-  output = "www/css/sass.min.css"
+# The compiled stylesheet is committed, so a read-only deploy can skip this.
+tryCatch(
+  sass(
+    sass::sass_file("styles/main.scss"),
+    cache = NULL,
+    options = sass_options(output_style = "compressed"),
+    output = "www/css/sass.min.css"
+  ),
+  error = function(e) message("Skipping sass build: ", conditionMessage(e))
 )

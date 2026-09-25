@@ -251,18 +251,23 @@ map_legend <- gridPanel(
     p("Data Sources"),
     a(
       target = "_blank",
-      href = "https://data2.unhcr.org/en/situations/ukraine",
-      "UNHCR Operational data Portal"
+      href = "https://ec.europa.eu/eurostat/databrowser/view/migr_asytpsm/default/table",
+      "Eurostat - Beneficiaries of temporary protection"
     ),
     a(
       target = "_blank",
-      href = "https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTmKNAxZn2cPpBqPHnRx9Hc_GPzfi7U92h05hkNuES6pA8l7IcbfdRELMkTBWGcBFoRkUdwlnfX889X/pubhtml?gid=0&single=true",
-      "Border information - Моніторинг черг на кордоні"
+      href = "https://www.unhcr.org/refugee-statistics/",
+      "UNHCR Refugee Data Finder"
     ),
     a(
       target = "_blank",
-      href = "https://en.wikipedia.org/wiki/Control_of_cities_during_the_Russo-Ukrainian_War",
-      "Control of cities during the Russo-Ukrainian War"
+      href = "https://nakordoni.eu",
+      "Border queues - Data by nakordoni.eu"
+    ),
+    a(
+      target = "_blank",
+      href = "https://deepstatemap.live",
+      "Territorial control - DeepStateMap"
     )
   ),
 
@@ -405,22 +410,27 @@ details_overlay <- gridPanel(
     div(id = "checkpointInnerTitle"),
     div(id = "checkpointOuterTitle"),
     div(id = "carHours"),
-    div(id = "carKM"),
+    div(id = "carUnits"),
     div(id = "pedestrianHours"),
     div(id = "pedestrianNumber"),
     div(id = "lastUpdate"),
-    div(id = "telegramChats"),
+    div(id = "sourceLink"),
     div(id = "googleLink")
   )
 )
 
 ui <- gridPage(
-  pwa(
-    "https://sparktuga.shinyapps.io/shinyukraini/",
-    title = "Slava Ukraini - Refugee Live Information",
-    icon = "www/icon.png",
-    output = "www",
-    color = "#222222"
+  # Writes its manifest and service worker into www/, which a read-only
+  # deploy does not allow; the page works without them.
+  tryCatch(
+    pwa(
+      "https://sparktuga.shinyapps.io/shinyukraini/",
+      title = "Slava Ukraini - Refugee Live Information",
+      icon = "www/icon.png",
+      output = "www",
+      color = "#222222"
+    ),
+    error = function(e) NULL
   ) %>%
   suppressWarnings() %>%
   suppressMessages(),

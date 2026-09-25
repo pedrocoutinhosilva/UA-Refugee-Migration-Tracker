@@ -44,11 +44,11 @@ getIconClass <- function(df) {
 checkpointPopup <- function(inner,
                             outer,
                             car_hours,
-                            car_km,
+                            car_units,
                             pedestrian_hours,
                             pedestrian_number,
                             lastUpdate,
-                            telegramChats,
+                            sourceLink,
                             googleLink) {
   div(class = "control-wrapper",
     div(
@@ -98,7 +98,7 @@ checkpointPopup <- function(inner,
 
         div(
           div(class = "popup-content-title", "Queue length"),
-          car_km,
+          car_units,
         ),
 
         div(
@@ -135,8 +135,8 @@ checkpointPopup <- function(inner,
         class = "telegram-metrics",
 
         div(
-          div(class = "popup-content-title", "Telegram Chats"),
-          telegramChats
+          div(class = "popup-content-title", "Live Source"),
+          sourceLink
         )
       ),
       google = div(
@@ -176,7 +176,8 @@ refugeeIcons <- function(data) {
           div(class = "country-refugee-icons", icons),
           div(class = "country-refugee-value",
             format(as.numeric(row$value), big.mark = " ")
-          )
+          ),
+          div(class = "country-refugee-date", paste("as of", row$date))
         ) %>%
         as.character() %>%
         HTML()

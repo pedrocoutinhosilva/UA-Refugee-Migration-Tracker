@@ -12,8 +12,20 @@ Clone the repository and make sure you have all required libraries. This project
 
 You can then run the app using `src/app.R`
 
+Live border queues need a free [Nakordoni API key](https://nakordoni.eu/en/developers). Put it in `src/.Renviron` (ignored by git):
+
+```
+NAKORDONI_API_KEY=NKD-DEV-XXXX-XXXX-XXXX
+```
+
+Without a key the app still runs; border points show as "Not available". Queue data is cached for 2 hours to stay within the free tier's daily quota.
+
+Every source is cached under `src/app/data/`. If a source is down or returns unusable data, the last good copy is used instead.
+
 # Links
 
 Data sources:
-- [UNHCR Operational data Portal](https://data2.unhcr.org/en/situations/ukraine)
-- [Border information - Моніторинг черг на кордоні](https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTmKNAxZn2cPpBqPHnRx9Hc_GPzfi7U92h05hkNuES6pA8l7IcbfdRELMkTBWGcBFoRkUdwlnfX889X/pubhtml?gid=0&single=true)
+- [Eurostat - Beneficiaries of temporary protection](https://ec.europa.eu/eurostat/databrowser/view/migr_asytpsm/default/table) (monthly, EU neighbours)
+- [UNHCR Refugee Data Finder](https://www.unhcr.org/refugee-statistics/) (yearly, Moldova, Belarus, Russia)
+- [Border queues - Data by nakordoni.eu](https://nakordoni.eu)
+- [Territorial control - DeepStateMap](https://deepstatemap.live)
