@@ -2752,7 +2752,7 @@
       "checksum": "20092deaa466b1c301c746532e8694fd"
     },
     "data/stations.R": {
-      "checksum": "99c67b45f21fa704e42c4f87e94c44d9"
+      "checksum": "b72487d6c310329934d485d4b1efd977"
     },
     "data/transnistria.geojson": {
       "checksum": "fd01d309ab1080dba5bbc06762c7f4bb"
@@ -2761,10 +2761,10 @@
       "checksum": "5afa08d6cf367f6a4aabdcc1918e7def"
     },
     "global.R": {
-      "checksum": "b8f7bc887b6bb84206247cf0e37e9971"
+      "checksum": "e09e8b9554dac43858921c11e0ffb2f7"
     },
     "server.R": {
-      "checksum": "9fc846a96fc3d1b867b51b4a23068847"
+      "checksum": "9da4c4b06a45ac8aba2a225e4fc345e0"
     },
     "styles/atoms/_general.scss": {
       "checksum": "b0cb27990e1e3260ffcce017afc13419"
