@@ -118,13 +118,27 @@ cached <- function(path, fetch, validate, max_age_mins = 0) {
   NULL
 }
 
-fetch_json <- function(url, headers = list(), ...) {
+fetch_json <- function(url, headers = list(), retries = 2, ...) {
   handle <- curl::new_handle(timeout = 30)
   curl::handle_setheaders(handle, .list = c(
     list("User-Agent" = "UA-Refugee-Migration-Tracker (R/Shiny)"),
     headers
   ))
-  response <- curl::curl_fetch_memory(url, handle = handle)
+
+  # Back off on 429 Too Many Requests, honouring Retry-After when sent.
+  for (attempt in 0:retries) {
+    response <- curl::curl_fetch_memory(url, handle = handle)
+    if (response$status_code != 429 || attempt == retries) break
+
+    retry_after <- suppressWarnings(as.numeric(
+      curl::parse_headers_list(response$headers)[["retry-after"]]
+    ))
+    Sys.sleep(if (length(retry_after) == 1 && !is.na(retry_after)) {
+      min(retry_after, 30)
+    } else {
+      2
+    })
+  }
 
   if (response$status_code != 200) {
     stop("HTTP ", response$status_code, " from ", url)
@@ -316,7 +330,8 @@ nakordoni_types <- c(car = 4, foot = 7)
 
 # Live queues leaving Ukraine, one call per destination country and vehicle
 # type. Border calls are "heavy" quota (200/day on the free Explorer key),
-# hence the long cache below.
+# hence the long cache below. Calls are spaced out to stay under the API's
+# requests-per-second limit, and one failed call only drops its own rows.
 fetch_nakordoni_queues <- function(key) {
   if (!nzchar(key)) stop("NAKORDONI_API_KEY is not set")
 
@@ -326,10 +341,17 @@ fetch_nakordoni_queues <- function(key) {
         "https://nakordoni.eu/api/v1/data/border/1/%s/%s?lang=uk",
         nakordoni_countries[[country]], nakordoni_types[[type]]
       )
-      rows <- fetch_json(
-        url,
-        headers = list(Authorization = paste("Bearer", key))
-      )$data$checkpoints
+      Sys.sleep(1)
+      rows <- tryCatch(
+        fetch_json(
+          url,
+          headers = list(Authorization = paste("Bearer", key))
+        )$data$checkpoints,
+        error = function(e) {
+          message("Border queue fetch failed: ", conditionMessage(e))
+          NULL
+        }
+      )
 
       if (length(rows) == 0) return(NULL)
 
