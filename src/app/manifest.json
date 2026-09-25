@@ -2719,7 +2719,7 @@
       "checksum": "7ee71a03525b796138f142ea6693e00a"
     },
     "components/dataProvider.R": {
-      "checksum": "780c0c4ff4be67920596ac8dd7fa0386"
+      "checksum": "b260fde2657f6833d0177c1ee7407942"
     },
     "components/loader.R": {
       "checksum": "9eea3989e4f1e990e3779b063a0d5b10"
@@ -2794,7 +2794,7 @@
       "checksum": "00efb6ed8fd7f5f91658cc2198aa2bea"
     },
     "ui.R": {
-      "checksum": "bcb703e6b3925d5a6a561d8243323dbe"
+      "checksum": "c4981e38a753f3837fb304487fe25b79"
     },
     "www/css/asfalt-dark.png": {
       "checksum": "28359df250103599e9feb9ce7026dace"
