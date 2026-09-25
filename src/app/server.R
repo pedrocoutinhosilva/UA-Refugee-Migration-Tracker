@@ -64,7 +64,7 @@ server <- function(input, output, session) {
       addProviderTiles(providers$Esri.WorldGrayCanvas,
         options = providerTileOptions(noWrap = TRUE)
       ) %>%
-      fitBounds(19.33594, 53.21261, 31.77246, 46.52863) %>%
+      fitBounds(19.33594, 53.21261, 31.77246, 45.1) %>%
       addGeoJSON(state$shapes) %>%
       addAwesomeMarkers(
         data = checkpoints,

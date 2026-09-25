@@ -16,7 +16,7 @@ state <- list(
   refugees = dataProvider$load_refugee_data(),
   cities = dataProvider$load_city_data(),
   regions = dataProvider$load_interest_regions(),
-  map_bounds = list(c(46.52863, 31.77246), c(53.21261, 19.33594)),
+  map_bounds = list(c(45.1, 31.77246), c(53.21261, 19.33594)),
   map_bounds_focus = list(c(51.943305, 22.854364), c(46.026401, 39.685416))
 )
 

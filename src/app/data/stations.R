@@ -48,6 +48,12 @@ stations <- list(
       ua_name = "Устилуг - Зосин",
       lat = 50.8570556,
       lng = 24.1411256
+    ),
+    list(
+      name = "Nyzhankovychi - Malhowice",
+      ua_name = "Нижанковичі - Мальховіце",
+      lat = 49.69420,
+      lng = 22.81705
     )
   ),
   SK = list(
@@ -102,6 +108,12 @@ stations <- list(
       ua_name = "Вилок - Тісабеч",
       lat = 48.0938408,
       lng = 22.8355356
+    ),
+    list(
+      name = "Velyka Palad - Nagyhodos",
+      ua_name = "Велика Паладь - Нодьгодош",
+      lat = 47.97800,
+      lng = 22.86266
     )
   ),
   RO = list(
@@ -122,6 +134,30 @@ stations <- list(
       ua_name = "Порубне - Сірет",
       lat = 47.9887425,
       lng = 26.0615089
+    ),
+    list(
+      name = "Diakivtsi - Racovat",
+      ua_name = "Дяківці - Раковець",
+      lat = 48.09929,
+      lng = 26.28052
+    ),
+    list(
+      name = "Krasnoilsk - Vicovu de Sus",
+      ua_name = "Красноїльськ - Вікову де Сус",
+      lat = 47.94657,
+      lng = 25.62114
+    ),
+    list(
+      name = "Bila Tserkva - Sighetu Marmatiei",
+      ua_name = "Біла Церква - Сігету Мармацієй",
+      lat = 47.94217,
+      lng = 23.93711
+    ),
+    list(
+      name = "Orlivka - Isaccea",
+      ua_name = "Орлівка - Ісакча",
+      lat = 45.29321,
+      lng = 28.45789
     )
   ),
   MD = list(
@@ -161,6 +197,60 @@ stations <- list(
       ua_name = "Сокиряни - Окниця",
       lat = 48.4387676,
       lng = 27.4627393
+    ),
+    list(
+      name = "Reni - Giurgiulesti",
+      ua_name = "Рені - Джурджулешти",
+      lat = 45.48176,
+      lng = 28.22673
+    ),
+    list(
+      name = "Serpneve 1 - Basarabeasca",
+      ua_name = "Серпневе 1 - Басарабяска",
+      lat = 46.31744,
+      lng = 29.00373
+    ),
+    list(
+      name = "Lisne - Saiti",
+      ua_name = "Лісне - Сеіць",
+      lat = 46.47000,
+      lng = 29.34778
+    ),
+    list(
+      name = "Dolynske - Cismichioi",
+      ua_name = "Долинське - Чишмікіой",
+      lat = 45.53481,
+      lng = 28.34637
+    ),
+    list(
+      name = "Vynohradivka - Vulcanesti",
+      ua_name = "Виноградівка - Вулканешти",
+      lat = 45.70183,
+      lng = 28.53867
+    ),
+    list(
+      name = "Tabaky - Myrne",
+      ua_name = "Табаки - Мирне",
+      lat = 45.72967,
+      lng = 28.58314
+    ),
+    list(
+      name = "Novi Troiany - Ceadir-Lunga",
+      ua_name = "Нові Трояни - Чадир-Лунга",
+      lat = 45.98197,
+      lng = 28.84419
+    ),
+    list(
+      name = "Starokozache - Tudora",
+      ua_name = "Старокозаче - Тудора",
+      lat = 46.37722,
+      lng = 29.98707
+    ),
+    list(
+      name = "Mayaky-Udobne - Palanca",
+      ua_name = "Маяки-Удобне - Паланка",
+      lat = 46.38363,
+      lng = 30.08718
     )
   )
 )
