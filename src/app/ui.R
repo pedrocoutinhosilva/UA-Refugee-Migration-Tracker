@@ -424,7 +424,7 @@ ui <- gridPage(
   # deploy does not allow; the page works without them.
   tryCatch(
     pwa(
-      "https://sparktuga.shinyapps.io/shinyukraini/",
+      "https://01a0d75e-1f95-cfef-7463-6156295500b2.share.connect.posit.cloud/",
       title = "Slava Ukraini - Refugee Live Information",
       icon = "www/icon.png",
       output = "www",

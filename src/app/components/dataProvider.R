@@ -416,8 +416,24 @@ load_data <- function() {
     max_age_mins = 120
   )
 
-  lapply(names(nakordoni_countries), function(country) {
+  checkpoints <- lapply(names(nakordoni_countries), function(country) {
     country_data(queues, country)
   }) %>%
     setNames(names(nakordoni_countries))
+
+  if (!is.null(queues)) {
+    all_stations <- do.call(rbind, checkpoints)
+    matched <- !is.na(all_stations$car_queue_units) |
+      !is.na(all_stations$foot_queue_units)
+    message(
+      "Border queues: ", nrow(queues), " readings, ",
+      sum(matched), "/", length(matched), " stations matched"
+    )
+    if (!all(matched)) {
+      message("Unmatched: ", paste(all_stations$inner_border_name[!matched], collapse = "; "))
+      message("Available: ", paste(unique(queues$name), collapse = "; "))
+    }
+  }
+
+  checkpoints
 }
